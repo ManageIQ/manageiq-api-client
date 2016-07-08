@@ -1,7 +1,7 @@
 require "manageiq/api/client/version"
 
 module ManageIQ
-  module Api
+  module API
     module Client
       # Your code goes here...
     end
