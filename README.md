@@ -1,9 +1,7 @@
-# ManageIQ::Api::Client
+# ManageIQ API Client
 
-Welcome to the ManageIQ::Api::Client Gem.
-
-This Gem provides Ruby access to the ManageIQ Rest API buy exposing the ManageIQ 
-collections, resources and related actions as ruby objects and equivalent methods.
+This gem provides Ruby access to the ManageIQ Rest API by exposing the ManageIQ
+collections, resources and related actions as Ruby objects and equivalent methods.
 
 ## Installation
 
@@ -23,18 +21,18 @@ Or install it yourself as:
 
 ## Usage
 
-```
-  miq = ManageIQ::Api::Client.new(:url => "http://localhost:3000", :username => "user", :password => "password")
-```
+```ruby
+miq = ManageIQ::Api::Client.new(
+  :url      => "http://localhost:3000",
+  :username => "user",
+  :password => "password"
+)
 
-```
-  miq.vms.search(:filter => "id=320").first.start
-```
+miq.vms.search(:filter => "id=320").first.start
 
-```
-  miq.vms.search(:filter => "name='test_*'").each do |vm|
-    vm.suspend if vm.hardware.memory_mb >= 8192
-  end
+miq.vms.search(:filter => "name='test_*'").each do |vm|
+  vm.suspend if vm.hardware.memory_mb >= 8192
+end
 ```
 
 ## Development
@@ -45,8 +43,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/manageiq-api-client.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/ManageIQ/manageiq-api-client.
 
 ## License
 
