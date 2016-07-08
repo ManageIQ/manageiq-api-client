@@ -5,7 +5,7 @@ require 'manageiq/api/client/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "manageiq-api-client"
-  spec.version       = ManageIQ::Api::Client::VERSION
+  spec.version       = ManageIQ::API::Client::VERSION
   spec.authors       = ["Alberto Bellotti"]
   spec.email         = ["abellott@redhat.com"]
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe ManageIQ::Api::Client do
+describe ManageIQ::API::Client do
   it 'has a version number' do
-    expect(ManageIQ::Api::Client::VERSION).not_to be nil
+    expect(ManageIQ::API::Client::VERSION).not_to be nil
   end
 end
