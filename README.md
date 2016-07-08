@@ -23,11 +23,19 @@ Or install it yourself as:
 
 ## Usage
 
-  miq = ManageIQ::Api::Client.new(:url => "http://localhost:3000", :username => "user", :password => "user_password")
+```
+  miq = ManageIQ::Api::Client.new(:url => "http://localhost:3000", :username => "user", :password => "password")
+```
 
-  myvm = miq.vms[320]
+```
+  miq.vms.search(:filter => "id=320").first.start
+```
 
-  myvm.start
+```
+  miq.vms.search(:filter => "name='test_*'").each do |vm|
+    vm.suspend if vm.hardware.memory_mb >= 8192
+  end
+```
 
 ## Development
 
