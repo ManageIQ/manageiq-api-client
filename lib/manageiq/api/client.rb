@@ -13,7 +13,7 @@ module ManageIQ
   module API
     module Client
       def new(options = {})
-        Connection.new(options)
+        Server.new(options)
       end
       module_function :new
     end
