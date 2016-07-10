@@ -9,6 +9,11 @@ require "manageiq/api/client/version"
 require "manageiq/api/client/authentication"
 require "manageiq/api/client/connection"
 require "manageiq/api/client/server"
+require "manageiq/api/client/server_api"
+require "manageiq/api/client/api_version"
+require "manageiq/api/client/collection"
+require "manageiq/api/client/action"
+require "manageiq/api/client/identity"
 
 module ManageIQ
   module API

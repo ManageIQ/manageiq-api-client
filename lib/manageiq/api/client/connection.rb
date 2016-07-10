@@ -5,7 +5,6 @@ module ManageIQ
         attr_accessor :url
         attr_accessor :authentication
         attr_accessor :response
-        attr_accessor :json_response
 
         CONTENT_TYPE = "application/json".freeze
 
@@ -25,18 +24,22 @@ module ManageIQ
 
         def get(path = "", params = {})
           send_request(:get, path, nil, params)
+          json_response
         end
 
         def put(path, data = "", params = {})
           send_request(:put, path, data, params)
+          json_response
         end
 
         def post(path, data = "", params = {})
           send_request(:post, path, data, params)
+          json_response
         end
 
         def patch(path, data = "", params = {})
           send_request(:patch, path, data, params)
+          json_response
         end
 
         def json_response
@@ -68,7 +71,6 @@ module ManageIQ
           if response.status >= 400
             raise json_response.fetch_path("error", "message")
           end
-          response
         end
       end
     end
