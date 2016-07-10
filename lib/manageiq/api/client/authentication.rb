@@ -13,6 +13,10 @@ module ManageIQ
             raise "Must specify both a user and a password" if user.blank? && password.blank?
           end
         end
+
+        def inspect
+          super.gsub(/@password=\".+?\", /, "")
+        end
       end
     end
   end
