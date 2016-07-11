@@ -5,12 +5,14 @@ module ManageIQ
         attr_accessor :url
         attr_accessor :authentication
         attr_accessor :response
+        attr_accessor :error
 
         CONTENT_TYPE = "application/json".freeze
 
         def initialize(url, authentication)
           @url = url
           @authentication = authentication
+          @error = ManageIQ::API::Client::Error.new
         end
 
         def handle
@@ -56,6 +58,7 @@ module ManageIQ
 
         def send_request(method, path, data, params)
           begin
+            error.clear
             @response = handle.send(method) do |request|
               request.url URI.join(url, "/api/#{path}").to_s
               request.headers[:content_type]  = CONTENT_TYPE
@@ -73,7 +76,8 @@ module ManageIQ
 
         def check_response
           if response.status >= 400
-            raise json_response.fetch_path("error", "message")
+            error.update(response.status, json_response)
+            raise error.message
           end
         end
       end
