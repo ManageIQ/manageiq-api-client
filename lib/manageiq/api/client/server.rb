@@ -36,7 +36,7 @@ module ManageIQ
           @api           = ManageIQ::API::Client::ServerApi.new(entrypoint)
           @settings      = entrypoint["settings"].dup
           @identity      = ManageIQ::API::Client::Identity.new(entrypoint["identity"])
-          @authorization = entrypoint["authorization"].dup
+          @authorization = Hash(entrypoint["authorization"]).dup
           @collections   = load_collections(entrypoint["collections"])
         end
 
@@ -46,7 +46,7 @@ module ManageIQ
 
         def load_collections(collection_list)
           collection_list.collect do |collection_def|
-            collection = ManageIQ::API::Client::Collection.new(collection_def)
+            collection = ManageIQ::API::Client::Collection.new(self, collection_def)
             create_method(collection.name.to_sym) { collection }
             collection
           end
