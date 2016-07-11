@@ -7,6 +7,7 @@ module ManageIQ
         attr_accessor :response
         attr_accessor :error
 
+        API_PREFIX = "/api".freeze
         CONTENT_TYPE = "application/json".freeze
 
         def initialize(url, authentication)
@@ -60,7 +61,7 @@ module ManageIQ
           begin
             error.clear
             @response = handle.send(method) do |request|
-              request.url URI.join(url, "/api/#{path}").to_s
+              request.url URI.join(url, "#{API_PREFIX}/#{path}").to_s
               request.headers[:content_type]  = CONTENT_TYPE
               request.headers[:accept]        = CONTENT_TYPE
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?
