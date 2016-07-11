@@ -13,14 +13,17 @@ module ManageIQ
         attr_accessor :authorization
         attr_accessor :collections
 
+        DEFAULTS = {
+          :url => "http://localhost:3000"
+        }.freeze
+
         def initialize(options = {})
           @options = options.dup
-          @url = options[:url]
-          raise "Must specify a ManageIQ Appliance URL" if url.blank?
+          @url = options[:url] || DEFAULTS[:url]
           begin
             URI.parse(url)
           rescue
-            raise "Malformed ManageIQ Appliance URL #{url}"
+            raise "Malformed ManageIQ Appliance URL #{url} specified"
           end
 
           @authentication = ManageIQ::API::Client::Authentication.new(options)
