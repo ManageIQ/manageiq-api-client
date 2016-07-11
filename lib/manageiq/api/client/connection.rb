@@ -42,6 +42,10 @@ module ManageIQ
           json_response
         end
 
+        def delete(path, params = {})
+          send_request(:delete, path, nil, params)
+        end
+
         def json_response
           JSON.parse(response.body.strip)
         rescue
