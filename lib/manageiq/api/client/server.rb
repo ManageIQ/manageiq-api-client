@@ -37,12 +37,24 @@ module ManageIQ
           @settings      = entrypoint["settings"].dup
           @identity      = ManageIQ::API::Client::Identity.new(entrypoint["identity"])
           @authorization = entrypoint["authorization"].dup
-          @collections   = entrypoint["collections"].collect do |collection_def|
-            ManageIQ::API::Client::Collection.new(collection_def)
-          end
+          @collections   = load_collections(entrypoint["collections"])
         end
 
         delegate :get, :post, :put, :patch, :delete, :error, :to => :connection
+
+        private
+
+        def load_collections(collection_list)
+          collection_list.collect do |collection_def|
+            collection = ManageIQ::API::Client::Collection.new(collection_def)
+            create_method(collection.name.to_sym) { collection }
+            collection
+          end
+        end
+
+        def create_method(name, &block)
+          self.class.send(:define_method, name, &block)
+        end
       end
     end
   end
