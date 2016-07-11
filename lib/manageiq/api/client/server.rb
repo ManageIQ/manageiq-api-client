@@ -41,6 +41,8 @@ module ManageIQ
             ManageIQ::API::Client::Collection.new(collection_def)
           end
         end
+
+        delegate :get, :post, :put, :patch, :delete, :error, :to => :connection
       end
     end
   end

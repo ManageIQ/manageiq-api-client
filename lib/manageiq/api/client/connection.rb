@@ -15,15 +15,6 @@ module ManageIQ
           @error = ManageIQ::API::Client::Error.new
         end
 
-        def handle
-          @handle = Faraday.new(:url => url, :ssl => {:verify => false}) do |faraday|
-            faraday.request(:url_encoded) # form-encode POST params
-            faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
-            faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
-            faraday.basic_auth(authentication.user, authentication.password) if authentication.token.blank?
-          end
-        end
-
         def get(path = "", params = {})
           send_request(:get, path, nil, params)
           json_response
@@ -55,6 +46,15 @@ module ManageIQ
         end
 
         private
+
+        def handle
+          @handle = Faraday.new(:url => url, :ssl => {:verify => false}) do |faraday|
+            faraday.request(:url_encoded) # form-encode POST params
+            faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
+            faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
+            faraday.basic_auth(authentication.user, authentication.password) if authentication.token.blank?
+          end
+        end
 
         def send_request(method, path, data, params)
           begin
