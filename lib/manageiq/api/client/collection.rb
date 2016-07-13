@@ -16,13 +16,13 @@ module ManageIQ
           options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
           result_hash = server.get(name, options)
           fetch_actions(result_hash)
-          klass = ManageIQ::API::Client::Resource.new_subclass(name)
+          klass = ManageIQ::API::Client::Resource.subclass(name)
           result_hash["resources"].collect do |resource_hash|
             klass.new(self, resource_hash)
           end
         end
 
-        def self.new_subclass(name)
+        def self.subclass(name)
           klass_name = name.classify
 
           if ManageIQ::API::Client::Collection.const_defined?(klass_name)

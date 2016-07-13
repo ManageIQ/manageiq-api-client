@@ -46,7 +46,7 @@ module ManageIQ
 
         def load_collections(collection_list)
           collection_list.collect do |collection_def|
-            klass = ManageIQ::API::Client::Collection.new_subclass(collection_def["name"])
+            klass = ManageIQ::API::Client::Collection.subclass(collection_def["name"])
             collection = klass.new(self, collection_def)
             create_method(collection.name.to_sym) { collection }
             collection

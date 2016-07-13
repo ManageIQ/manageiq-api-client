@@ -14,7 +14,7 @@ module ManageIQ
           @collection = collection
         end
 
-        def self.new_subclass(name)
+        def self.subclass(name)
           klass_name = name.classify
 
           if ManageIQ::API::Client::Resource.const_defined?(klass_name)
