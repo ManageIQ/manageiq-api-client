@@ -6,17 +6,10 @@ module ManageIQ
       class Collection
         include ActionMixin
 
-        attr_accessor :name
-        attr_accessor :href
-        attr_accessor :description
         attr_accessor :server
 
-        def initialize(server, collection_spec)
-          @server      = server
-          @name        = collection_spec["name"]
-          @href        = collection_spec["href"]
-          @description = collection_spec["description"]
-          clear_actions
+        def initialize(server)
+          @server = server
         end
 
         def search(options = {})
