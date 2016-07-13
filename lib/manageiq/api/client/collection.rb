@@ -23,7 +23,7 @@ module ManageIQ
         end
 
         def self.subclass(name)
-          klass_name = name.classify
+          klass_name = name.camelize
 
           if ManageIQ::API::Client::Collection.const_defined?(klass_name)
             ManageIQ::API::Client::Collection.const_get(klass_name)
