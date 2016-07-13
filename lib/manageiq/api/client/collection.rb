@@ -16,8 +16,9 @@ module ManageIQ
           options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
           result_hash = server.get(name, options)
           fetch_actions(result_hash)
+          klass = ManageIQ::API::Client::Resource.new_subclass(name)
           result_hash["resources"].collect do |resource_hash|
-            ManageIQ::API::Client::Resource.new(self, resource_hash)
+            klass.new(self, resource_hash)
           end
         end
       end
