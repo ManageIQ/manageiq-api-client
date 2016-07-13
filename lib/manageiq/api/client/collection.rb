@@ -21,6 +21,31 @@ module ManageIQ
             klass.new(self, resource_hash)
           end
         end
+
+        def self.new_subclass(name)
+          klass_name = name.classify
+
+          if ManageIQ::API::Client::Collection.const_defined?(klass_name)
+            ManageIQ::API::Client::Collection.const_get(klass_name)
+          else
+            klass = Class.new(ManageIQ::API::Client::Collection) do
+              attr_accessor :name
+              attr_accessor :href
+              attr_accessor :description
+              attr_accessor :actions
+
+              def initialize(server, collection_spec)
+                @name        = collection_spec["name"]
+                @href        = collection_spec["href"]
+                @description = collection_spec["description"]
+                clear_actions
+                super(server)
+              end
+            end
+
+            ManageIQ::API::Client::Collection.const_set(klass_name, klass)
+          end
+        end
       end
     end
   end

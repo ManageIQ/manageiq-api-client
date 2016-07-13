@@ -46,30 +46,7 @@ module ManageIQ
 
         def load_collections(collection_list)
           collection_list.collect do |collection_def|
-            collection_name = collection_def["name"]
-            klass_name = collection_name.classify
-
-            if ManageIQ::API::Client::Collection.const_defined?(klass_name)
-              klass = ManageIQ::API::Client::Collection.const_get(klass_name)
-            else
-              klass = Class.new(ManageIQ::API::Client::Collection) do
-                attr_accessor :name
-                attr_accessor :href
-                attr_accessor :description
-                attr_accessor :actions
-
-                def initialize(server, collection_spec)
-                  @name        = collection_spec["name"]
-                  @href        = collection_spec["href"]
-                  @description = collection_spec["description"]
-                  clear_actions
-                  super(server)
-                end
-              end
-
-              ManageIQ::API::Client::Collection.const_set(klass_name, klass)
-            end
-
+            klass = ManageIQ::API::Client::Collection.new_subclass(collection_def["name"])
             collection = klass.new(self, collection_def)
             create_method(collection.name.to_sym) { collection }
             collection
