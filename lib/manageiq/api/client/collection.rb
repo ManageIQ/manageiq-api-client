@@ -1,3 +1,5 @@
+require_relative "mixins/action_mixin"
+
 module ManageIQ
   module API
     module Client
