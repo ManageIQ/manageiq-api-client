@@ -17,27 +17,27 @@ module ManageIQ
         end
 
         def get(path = "", params = {})
-          send_request(:get, path, nil, params)
+          send_request(:get, path, params)
           json_response
         end
 
-        def put(path, data = "", params = {})
-          send_request(:put, path, data, params)
+        def put(path, params = {}, &block)
+          send_request(:put, path, params, &block)
           json_response
         end
 
-        def post(path, data = "", params = {})
-          send_request(:post, path, data, params)
+        def post(path, params = {}, &block)
+          send_request(:post, path, params, &block)
           json_response
         end
 
-        def patch(path, data = "", params = {})
-          send_request(:patch, path, data, params)
+        def patch(path, params = {}, &block)
+          send_request(:patch, path, params, &block)
           json_response
         end
 
         def delete(path, params = {})
-          send_request(:delete, path, nil, params)
+          send_request(:delete, path, params)
         end
 
         def json_response
@@ -57,7 +57,7 @@ module ManageIQ
           end
         end
 
-        def send_request(method, path, data, params)
+        def send_request(method, path, params, &block)
           begin
             error.clear
             @response = handle.send(method) do |request|
@@ -67,7 +67,7 @@ module ManageIQ
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?
               request.headers['X-Auth-Token'] = authentication.token unless authentication.token.blank?
               request.params.merge!(params)
-              request.body = data unless data.nil?
+              request.body = yield(block).to_json if block
             end
           rescue => err
             raise "Failed to send request to #{url} - #{err}"
