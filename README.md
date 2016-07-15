@@ -1,5 +1,11 @@
 # ManageIQ API Client
 
+[![Gem Version](https://badge.fury.io/rb/manageiq-api-client.svg)](http://badge.fury.io/rb/manageiq-api-client)
+[![Build Status](https://travis-ci.org/ManageIQ/manageiq-api-client.svg)](https://travis-ci.org/ManageIQ/manageiq-api-client)
+[![Code Climate](https://codeclimate.com/github/ManageIQ/manageiq-api-client.svg)](https://codeclimate.com/github/ManageIQ/manageiq-api-client)
+[![Test Coverage](https://codeclimate.com/github/ManageIQ/manageiq-api-client/badges/coverage.svg)](https://codeclimate.com/github/ManageIQ/manageiq-api-client/coverage)
+[![Dependency Status](https://gemnasium.com/ManageIQ/manageiq-api-client.svg)](https://gemnasium.com/ManageIQ/manageiq-api-client)
+
 This gem provides Ruby access to the ManageIQ Rest API by exposing the ManageIQ
 collections, resources and related actions as Ruby objects and equivalent methods.
 
