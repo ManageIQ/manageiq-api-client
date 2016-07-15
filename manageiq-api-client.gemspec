@@ -9,7 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alberto Bellotti"]
   spec.email         = ["abellott@redhat.com"]
 
-  spec.summary       = "ManageIQ Api Client"
+  spec.summary       = "ManageIQ API Client"
+  spec.description   = %q{
+    This gem provides Ruby access to the ManageIQ Rest API by exposing the ManageIQ
+    collections, resources and related actions as Ruby objects and equivalent methods.
+  }
   spec.homepage      = "http://github.com/ManageIQ/manageiq-api-client"
   spec.license       = "MIT"
 
