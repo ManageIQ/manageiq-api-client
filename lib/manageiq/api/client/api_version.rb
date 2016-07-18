@@ -1,13 +1,12 @@
 module ManageIQ
   module API
-    module Client
+    class Client
       class ApiVersion
         attr_accessor :name
         attr_accessor :href
 
         def initialize(version_spec)
-          @name = version_spec["name"]
-          @href = version_spec["href"]
+          @name, @href = version_spec.values_at("name", "href")
         end
       end
     end

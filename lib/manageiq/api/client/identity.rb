@@ -1,6 +1,6 @@
 module ManageIQ
   module API
-    module Client
+    class Client
       class Identity
         attr_accessor :userid
         attr_accessor :name

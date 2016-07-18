@@ -1,36 +1,32 @@
-require_relative "mixins/action_mixin"
-
 module ManageIQ
   module API
-    module Client
+    class Client
       class Resource
         include ActionMixin
 
-        attr_accessor :collection
-
-        delegate :server, :to => :@collection
-
-        def initialize(collection)
-          @collection = collection
+        def initialize(*_args)
+          raise "Cannot instantiate a #{self.class}"
         end
 
         def self.subclass(name)
           klass_name = name.classify
 
-          if ManageIQ::API::Client::Resource.const_defined?(klass_name)
-            ManageIQ::API::Client::Resource.const_get(klass_name)
+          if const_defined?(klass_name)
+            const_get(klass_name)
           else
-            klass = Class.new(ManageIQ::API::Client::Resource) do
+            klass = Class.new(self) do
               attr_accessor :data
+              attr_accessor :collection
 
-              def initialize(collection, resource_hash)
+              delegate :client, :to => :@collection
+
+              define_method("initialize") do |collection, resource_hash|
+                @collection = collection
                 @data = resource_hash.except("actions")
                 fetch_actions(resource_hash)
-                super(collection)
               end
             end
-
-            ManageIQ::API::Client::Resource.const_set(klass_name, klass)
+            const_set(klass_name, klass)
             klass
           end
         end

@@ -1,19 +1,21 @@
 module ManageIQ
   module API
-    module Client
+    class Client
       class Connection
         attr_accessor :url
         attr_accessor :authentication
+        attr_accessor :options
         attr_accessor :response
         attr_accessor :error
 
         API_PREFIX = "/api".freeze
         CONTENT_TYPE = "application/json".freeze
 
-        def initialize(url, authentication)
+        def initialize(url, authentication, connection_options = {})
           @url = url
           @authentication = authentication
-          @error = ManageIQ::API::Client::Error.new
+          @options = connection_options
+          @error = nil
         end
 
         def get(path = "", params = {})
@@ -38,18 +40,20 @@ module ManageIQ
 
         def delete(path, params = {})
           send_request(:delete, path, params)
+          json_response
         end
 
         def json_response
           JSON.parse(response.body.strip)
         rescue
-          {}
+          raise JSON::ParserError, "Response received from #{url} is not of type #{CONTENT_TYPE}"
         end
 
         private
 
         def handle
-          @handle = Faraday.new(:url => url, :ssl => {:verify => false}) do |faraday|
+          ssl_options = @options[:ssl]
+          Faraday.new(:url => url, :ssl => ssl_options) do |faraday|
             faraday.request(:url_encoded) # form-encode POST params
             faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
             faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
@@ -59,7 +63,7 @@ module ManageIQ
 
         def send_request(method, path, params, &block)
           begin
-            error.clear
+            @error = nil
             @response = handle.send(method) do |request|
               request.url URI.join(url, "#{API_PREFIX}/#{path}").to_s
               request.headers[:content_type]  = CONTENT_TYPE
@@ -77,8 +81,8 @@ module ManageIQ
 
         def check_response
           if response.status >= 400
-            error.update(response.status, json_response)
-            raise error.message
+            @error = ManageIQ::API::Client::Error.new(response.status, json_response)
+            raise @error.message
           end
         end
       end

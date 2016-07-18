@@ -1,6 +1,6 @@
 module ManageIQ
   module API
-    module Client
+    class Client
       class Error
         attr_accessor :status
         attr_accessor :kind
@@ -20,9 +20,7 @@ module ManageIQ
           @kind, @message, @klass = nil
           error_hash = json_response["error"]
           if status >= 400 && error_hash.present?
-            @kind    = error_hash["kind"]
-            @message = error_hash["message"]
-            @klass   = error_hash["klass"]
+            @kind, @message, @klass = error_hash.values_at("kind", "message", "klass")
           end
         end
       end

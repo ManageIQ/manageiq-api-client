@@ -1,8 +1,11 @@
 module ManageIQ
   module API
-    module Client
+    class Client
       class Authentication
-        attr_accessor :user, :password, :token, :group
+        attr_accessor :user
+        attr_accessor :password
+        attr_accessor :token
+        attr_accessor :group
 
         DEFAULTS = {
           :user     => "admin",
@@ -11,8 +14,7 @@ module ManageIQ
 
         def initialize(options = {})
           @user, @password = fetch_credentials(options)
-          @token = options[:token]
-          @group = options[:group]
+          @token, @group = options.values_at(:token, :group)
 
           unless token
             raise "Must specify both a user and a password" if user.blank? || password.blank?
@@ -20,7 +22,7 @@ module ManageIQ
         end
 
         def inspect
-          super.gsub(/@password=\".+?\", /, "")
+          super.gsub(/@password=".+?"(, )?/, "")
         end
 
         private

@@ -1,17 +1,15 @@
 module ManageIQ
   module API
-    module Client
-      class ServerApi
+    class Client
+      class API
         attr_accessor :name
         attr_accessor :description
         attr_accessor :version
         attr_accessor :versions
 
         def initialize(entrypoint)
-          @name        = entrypoint["name"]
-          @description = entrypoint["description"]
-          @version     = entrypoint["version"]
-          @versions    = entrypoint["versions"].collect do |version_spec|
+          @name, @description, @version = entrypoint.values_at("name", "description", "version")
+          @versions = entrypoint["versions"].collect do |version_spec|
             ManageIQ::API::Client::ApiVersion.new(version_spec)
           end
         end
