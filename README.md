@@ -29,7 +29,7 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-miq = ManageIQ::Api::Client.new(
+miq = ManageIQ::API::Client.new(
   :url      => "http://localhost:3000",
   :username => "user",
   :password => "password"
