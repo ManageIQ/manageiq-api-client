@@ -12,19 +12,11 @@ module ManageIQ
       attr_accessor :authorization
       attr_accessor :collections
 
-      DEFAULTS = {
-        :url => "http://localhost:3000"
-      }.freeze
+      DEFAULT_URL = URI.parse("http://localhost:3000")
 
       def initialize(options = {})
         @options = options.dup
-        @url = options[:url] || DEFAULTS[:url]
-        begin
-          URI.parse(url)
-        rescue
-          raise "Malformed ManageIQ Appliance URL #{url} specified"
-        end
-
+        @url = extract_url(options)
         @authentication = ManageIQ::API::Client::Authentication.new(options)
         @connection = ManageIQ::API::Client::Connection.new(url, authentication, options.slice(:ssl))
         load_definitions
@@ -50,6 +42,14 @@ module ManageIQ
           create_method(collection.name.to_sym) { collection }
           collection
         end
+      end
+
+      def extract_url(options)
+        url = options[:url] || DEFAULT_URL
+        url = URI.parse(url) unless url.kind_of?(URI)
+        url
+      rescue
+        raise "Malformed ManageIQ Appliance URL #{url} specified"
       end
 
       def create_method(name, &block)
