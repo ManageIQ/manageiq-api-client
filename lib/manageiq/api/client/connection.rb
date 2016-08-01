@@ -71,7 +71,8 @@ module ManageIQ
           begin
             @error = nil
             @response = handle.send(method) do |request|
-              request.url URI.join(url, "#{API_PREFIX}/#{path}").to_s
+              path = URI.join(url, "#{API_PREFIX}/#{path}").to_s unless path.is_a?(URI)
+              request.url path
               request.headers[:content_type]  = CONTENT_TYPE
               request.headers[:accept]        = CONTENT_TYPE
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?

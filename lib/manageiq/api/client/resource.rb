@@ -30,6 +30,14 @@ module ManageIQ
             klass
           end
         end
+
+        def method_missing(sym, *args, &block)
+          if find_action(sym)
+            do_action(sym)
+          else
+            super
+          end
+        end
       end
     end
   end
