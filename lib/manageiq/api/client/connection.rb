@@ -49,6 +49,12 @@ module ManageIQ
           raise JSON::ParserError, "Response received from #{url} is not of type #{CONTENT_TYPE}"
         end
 
+        def fetch_token
+          @authentication.token = nil
+          res = get "auth"
+          @authentication.token = res["auth_token"]
+        end
+
         private
 
         def handle
