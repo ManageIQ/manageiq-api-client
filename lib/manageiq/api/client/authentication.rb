@@ -25,6 +25,10 @@ module ManageIQ
           super.gsub(/@password=".+?"(, )?/, "")
         end
 
+        def self.options?(options)
+          options.slice(:user, :password, :token, :group).present?
+        end
+
         private
 
         def fetch_credentials(options)
