@@ -3,6 +3,7 @@ module ManageIQ
     class Client
       class Collection
         include ActionMixin
+        include CustomInspectMixin
 
         def initialize(*_args)
           raise "Cannot instantiate a #{self.class}"
@@ -15,6 +16,8 @@ module ManageIQ
             const_get(klass_name, false)
           else
             klass = Class.new(self) do
+              include CustomInspectMixin
+
               attr_accessor :client
 
               attr_accessor :name
@@ -23,6 +26,8 @@ module ManageIQ
               attr_accessor :actions
 
               define_method("initialize") do |client, collection_spec|
+                custom_inspect_exclude(:client)
+
                 @client = client
                 @name, @href, @description = collection_spec.values_at("name", "href", "description")
                 clear_actions
