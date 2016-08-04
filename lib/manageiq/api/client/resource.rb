@@ -33,7 +33,7 @@ module ManageIQ
 
         def method_missing(sym, *args, &block)
           if find_action(sym)
-            do_action(sym)
+            do_action(sym, *args)
           else
             super
           end

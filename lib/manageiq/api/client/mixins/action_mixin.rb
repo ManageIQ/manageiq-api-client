@@ -6,10 +6,16 @@ module ActionMixin
     @action = @actions.find { |action| action.name == name.to_s }
   end
 
-  def do_action(name)
+  def do_action(name, *args)
+    if args.any? && (args.length > 1 || !args.first.is_a?(Hash))
+      raise 'TypeError: Wrong format of resource params'
+    end
+
     @action ||= find_action(name)
     client.send @action.method, URI(@action.href) do
-      { action: @action.name }
+      body = { action: @action.name }
+      body.merge!({ resource: args.first }) unless args.empty?
+      body
     end
   end
 
