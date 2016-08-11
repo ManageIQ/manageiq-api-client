@@ -25,6 +25,14 @@ module ManageIQ
                 @data = resource_hash.except("actions")
                 fetch_actions(resource_hash)
               end
+
+              define_method("method_missing") do |sym|
+                if data.key?(sym.to_s)
+                  data[sym.to_s]
+                else
+                  raise NoMethodError, "undefined method `#{sym}' for #{self}"
+                end
+              end
             end
             const_set(klass_name, klass)
             klass
