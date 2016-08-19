@@ -31,7 +31,7 @@ Or install it yourself as:
 ```ruby
 miq = ManageIQ::API::Client.new(
   :url      => "http://localhost:3000",
-  :username => "user",
+  :user     => "user",
   :password => "password"
 )
 
