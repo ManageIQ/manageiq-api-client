@@ -2,8 +2,6 @@ module ManageIQ
   module API
     class Client
       class Authentication
-        include CustomInspectMixin
-
         attr_accessor :user
         attr_accessor :password
         attr_accessor :token
@@ -15,9 +13,10 @@ module ManageIQ
           :password => "smartvm"
         }.freeze
 
-        def initialize(options = {})
-          custom_inspect_exclude(:password)
+        CUSTOM_INSPECT_EXCLUSIONS = [:@password].freeze
+        include CustomInspectMixin
 
+        def initialize(options = {})
           @user, @password = fetch_credentials(options)
           @token, @miqtoken, @group = options.values_at(:token, :miqtoken, :group)
 

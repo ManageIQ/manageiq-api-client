@@ -3,6 +3,8 @@ module ManageIQ
     class Client
       class Resource
         include ActionMixin
+
+        CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
         include CustomInspectMixin
 
         def initialize(*_args)
@@ -16,8 +18,6 @@ module ManageIQ
             const_get(klass_name, false)
           else
             klass = Class.new(self) do
-              include CustomInspectMixin
-
               attr_accessor :data
               attr_accessor :collection
               attr_accessor :actions
@@ -25,8 +25,6 @@ module ManageIQ
               delegate :client, :to => :@collection
 
               define_method("initialize") do |collection, resource_hash|
-                custom_inspect_exclude(:collection)
-
                 @collection = collection
                 @data = resource_hash.except("actions")
                 fetch_actions(resource_hash)
