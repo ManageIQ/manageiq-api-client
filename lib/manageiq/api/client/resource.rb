@@ -26,12 +26,12 @@ module ManageIQ
                 fetch_actions(resource_hash)
               end
 
-              define_method("method_missing") do |sym|
-                if data.key?(sym.to_s)
-                  data[sym.to_s]
-                else
-                  raise NoMethodError, "undefined method `#{sym}' for #{self}"
-                end
+              define_method("method_missing") do |sym, *args|
+                data.key?(sym.to_s) ? data[sym.to_s] : super(sym, *args)
+              end
+
+              define_method("respond_to_missing?") do |sym, *args|
+                data.key?(sym.to_s) || super(sym, *args)
               end
             end
             const_set(klass_name, klass)
