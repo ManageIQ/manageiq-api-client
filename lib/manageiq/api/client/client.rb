@@ -31,21 +31,20 @@ module ManageIQ
       end
 
       def update_authentication(auth_options = {})
-        return @authentication unless ManageIQ::API::Client::Authentication.options?(auth_options)
+        return @authentication unless ManageIQ::API::Client::Authentication.auth_options_specified?(auth_options)
         saved_auth = @authentication
         @authentication = ManageIQ::API::Client::Authentication.new(auth_options)
         begin
           reconnect
-        rescue => err
+        rescue
           @authentication = saved_auth
-          raise err
+          raise
         end
         @authentication
       end
 
       def reconnect
-        new_connection = ManageIQ::API::Client::Connection.new(self, options.slice(:ssl))
-        @connection = new_connection
+        @connection = ManageIQ::API::Client::Connection.new(self, options.slice(:ssl))
         load_definitions
       end
 
