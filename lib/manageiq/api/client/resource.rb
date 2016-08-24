@@ -25,6 +25,14 @@ module ManageIQ
                 @data = resource_hash.except("actions")
                 fetch_actions(resource_hash)
               end
+
+              define_method("method_missing") do |sym, *args|
+                data.key?(sym.to_s) ? data[sym.to_s] : super(sym, *args)
+              end
+
+              define_method("respond_to_missing?") do |sym, *args|
+                data.key?(sym.to_s) || super(sym, *args)
+              end
             end
             const_set(klass_name, klass)
             klass
