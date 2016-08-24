@@ -30,6 +30,7 @@ module ManageIQ
 
               define_method("search") do |options = {}|
                 options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
+                options[:filter] = Array(options[:filter]) if options[:filter].is_a?(String)
                 result_hash = client.get(name, options)
                 fetch_actions(result_hash)
                 klass = ManageIQ::API::Client::Resource.subclass(name)

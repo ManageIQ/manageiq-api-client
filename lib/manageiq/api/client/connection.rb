@@ -50,6 +50,12 @@ module ManageIQ
           raise JSON::ParserError, "Response received from #{url} is not of type #{CONTENT_TYPE}"
         end
 
+        def fetch_token
+          @authentication.token = nil
+          res = get "auth"
+          @authentication.token = res["auth_token"]
+        end
+
         private
 
         def handle
@@ -66,7 +72,8 @@ module ManageIQ
           begin
             @error = nil
             @response = handle.send(method) do |request|
-              request.url URI.join(url, "#{API_PREFIX}/#{path}").to_s
+              path = URI.join(url, "#{API_PREFIX}/#{path}").to_s unless path.is_a?(URI)
+              request.url path
               request.headers[:content_type]  = CONTENT_TYPE
               request.headers[:accept]        = CONTENT_TYPE
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?
