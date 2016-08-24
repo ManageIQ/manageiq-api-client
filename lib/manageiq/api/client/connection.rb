@@ -44,7 +44,8 @@ module ManageIQ
         end
 
         def json_response
-          JSON.parse(response.body.strip)
+          resp = response.body.strip
+          resp.blank? ? {} : JSON.parse(resp)
         rescue
           raise JSON::ParserError, "Response received from #{url} is not of type #{CONTENT_TYPE}"
         end
