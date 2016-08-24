@@ -4,11 +4,10 @@ require "faraday"
 require "faraday_middleware"
 require "json"
 require "more_core_extensions/all"
+require "query_relation"
 
 require "manageiq/api/client/client"
-require "manageiq/api/client/acts_as_ar_query"
 require "manageiq/api/client/mixins/action_mixin"
-require "manageiq/api/client/mixins/acts_as_ar_query_mixin"
 
 require "manageiq/api/client/api"
 require "manageiq/api/client/action"

@@ -3,10 +3,15 @@ module ManageIQ
     class Client
       class Collection
         include ActionMixin
-        include ActsAsArQueryMixin
+        include Enumerable
+        include QueryRelation::Queryable
 
         def initialize(*_args)
           raise "Cannot instantiate a #{self.class}"
+        end
+
+        def each(&block)
+          all.each(&block)
         end
 
         def self.subclass(name)
@@ -29,7 +34,7 @@ module ManageIQ
                 clear_actions
               end
 
-              define_method("search") do |options = {}|
+              define_method("get") do |options = {}|
                 options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
                 result_hash = client.get(name, options)
                 fetch_actions(result_hash)
@@ -44,56 +49,69 @@ module ManageIQ
           end
         end
 
-        def ar_search(options)
-          search(query_parameters_from_ar_query_options(options))
+        def search(mode, options)
+          options[:limit] = 1 if mode == :first
+          result = get(parameters_from_query_relation(options))
+          case mode
+          when :first then result.first
+          when :last  then result.last
+          when :all   then result
+          else raise "Invalid mode #{mode} specified for search"
+          end
         end
 
         private
 
-        def query_parameters_from_ar_query_options(options)
+        def parameters_from_query_relation(options)
           api_params = {}
           [:offset, :limit].each { |opt| api_params[opt] = options[opt] if options[opt] }
           api_params[:attributes] = options[:select].join(",") if options[:select].present?
           if options[:where]
             api_params[:filter] ||= []
-            conditional_parameter_from_ar_query_options(api_params[:filter], "=", options[:where])
+            api_params[:filter] += filters_from_query_relation("=", options[:where])
           end
           if options[:not]
             api_params[:filter] ||= []
-            conditional_parameter_from_ar_query_options(api_params[:filter], "!=", options[:not])
+            api_params[:filter] += filters_from_query_relation("!=", options[:not])
           end
           if options[:order]
-            order_parameters_from_ar_query_options(api_params, options[:order])
+            order_parameters_from_query_relation(options[:order]).each { |param, value| api_params[param] = value }
           end
           api_params
         end
 
-        def conditional_parameter_from_ar_query_options(filter_param, condition, ar_option)
-          ar_option.each do |attr, values|
+        def filters_from_query_relation(condition, option)
+          filters = []
+          option.each do |attr, values|
             Array(values).each do |value|
               value = "'#{value}'" if value.kind_of?(String) && !value.match(/^(NULL|nil)$/i)
-              filter_param << "#{attr}#{condition}#{value}"
+              filters << "#{attr}#{condition}#{value}"
             end
           end
+          filters
         end
 
-        def order_parameters_from_ar_query_options(api_params, ar_option)
-          api_params[:sort_by] = []
-          api_params[:sort_order] = []
-          ar_option.each do |sort_attr, sort_order|
-            api_params[:sort_by] << sort_attr
-            case sort_order
-            when /^asc/i
-              sort_order = "asc"
-            when /^desc/i
-              sort_order = "desc"
+        def order_parameters_from_query_relation(option)
+          query_relation_option =
+            if option.kind_of?(Array)
+              option.each_with_object({}) { |name, hash| hash[name] = "asc" }
             else
-              raise "Invalid sort order #{sort_order} specified for attribute #{sort_attr}"
+              option.dup
             end
-            api_params[:sort_order] << sort_order
+
+          res_sort_by = []
+          res_sort_order = []
+          query_relation_option.each do |sort_attr, sort_order|
+            res_sort_by << sort_attr
+            sort_order =
+              case sort_order
+              when /^asc/i  then "asc"
+              when /^desc/i then "desc"
+              else raise "Invalid sort order #{sort_order} specified for attribute #{sort_attr}"
+              end
+            res_sort_order << sort_order
           end
-          api_params[:sort_by] = api_params[:sort_by].join(",")
-          api_params[:sort_order] = api_params[:sort_order].join(",")
+          { :sort_by => res_sort_by.join(","), :sort_order => res_sort_order.join(",") }
         end
       end
     end
