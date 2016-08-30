@@ -12,6 +12,7 @@ require "manageiq/api/client/mixins/custom_inspect_mixin"
 
 require "manageiq/api/client/api"
 require "manageiq/api/client/action"
+require "manageiq/api/client/action_result"
 require "manageiq/api/client/api_version"
 require "manageiq/api/client/authentication"
 require "manageiq/api/client/collection"
