@@ -11,8 +11,8 @@ module ManageIQ
         def self.subclass(name)
           klass_name = name.classify
 
-          if const_defined?(klass_name)
-            const_get(klass_name)
+          if const_defined?(klass_name, false)
+            const_get(klass_name, false)
           else
             klass = Class.new(self) do
               attr_accessor :data
