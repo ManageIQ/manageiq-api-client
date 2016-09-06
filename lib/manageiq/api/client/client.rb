@@ -25,8 +25,8 @@ module ManageIQ
       def load_definitions
         entrypoint     = connection.get("", :attributes => "authorization")
         @api           = ManageIQ::API::Client::API.new(entrypoint)
-        @settings      = entrypoint["settings"].dup
-        @identity      = ManageIQ::API::Client::Identity.new(entrypoint["identity"])
+        @settings      = Hash(entrypoint["settings"]).dup
+        @identity      = ManageIQ::API::Client::Identity.new(Hash(entrypoint["identity"]))
         @authorization = Hash(entrypoint["authorization"]).dup
         @collections   = load_collections(entrypoint["collections"])
       end
