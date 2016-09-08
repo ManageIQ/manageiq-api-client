@@ -60,7 +60,9 @@ module ManageIQ
             faraday.request(:url_encoded) # form-encode POST params
             faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
             faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
-            faraday.basic_auth(authentication.user, authentication.password) if authentication.token.blank?
+            if authentication.token.blank? && authentication.miqtoken.blank?
+              faraday.basic_auth(authentication.user, authentication.password)
+            end
           end
         end
 
@@ -73,6 +75,7 @@ module ManageIQ
               request.headers[:accept]        = CONTENT_TYPE
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?
               request.headers['X-Auth-Token'] = authentication.token unless authentication.token.blank?
+              request.headers['X-MIQ-Token']  = authentication.miqtoken unless authentication.miqtoken.blank?
               request.params.merge!(params)
               request.body = yield(block).to_json if block
             end
