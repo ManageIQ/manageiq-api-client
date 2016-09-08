@@ -4,16 +4,18 @@ module ManageIQ
       class Connection
         attr_accessor :url
         attr_accessor :authentication
+        attr_accessor :client
         attr_accessor :options
         attr_accessor :response
         attr_accessor :error
 
+        delegate :url, :authentication, :to => :client
+
         API_PREFIX = "/api".freeze
         CONTENT_TYPE = "application/json".freeze
 
-        def initialize(url, authentication, connection_options = {})
-          @url = url
-          @authentication = authentication
+        def initialize(client, connection_options = {})
+          @client = client
           @options = connection_options
           @error = nil
         end

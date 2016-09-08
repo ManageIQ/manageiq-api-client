@@ -18,8 +18,7 @@ module ManageIQ
         @options = options.dup
         @url = extract_url(options)
         @authentication = ManageIQ::API::Client::Authentication.new(options)
-        @connection = ManageIQ::API::Client::Connection.new(url, authentication, options.slice(:ssl))
-        load_definitions
+        reconnect
       end
 
       def load_definitions
@@ -29,6 +28,24 @@ module ManageIQ
         @identity      = ManageIQ::API::Client::Identity.new(entrypoint["identity"])
         @authorization = Hash(entrypoint["authorization"]).dup
         @collections   = load_collections(entrypoint["collections"])
+      end
+
+      def update_authentication(auth_options = {})
+        return @authentication unless ManageIQ::API::Client::Authentication.auth_options_specified?(auth_options)
+        saved_auth = @authentication
+        @authentication = ManageIQ::API::Client::Authentication.new(auth_options)
+        begin
+          reconnect
+        rescue
+          @authentication = saved_auth
+          raise
+        end
+        @authentication
+      end
+
+      def reconnect
+        @connection = ManageIQ::API::Client::Connection.new(self, options.slice(:ssl))
+        load_definitions
       end
 
       delegate :get, :post, :put, :patch, :delete, :error, :to => :connection
