@@ -17,6 +17,24 @@ module ManageIQ
           all.each(&block)
         end
 
+        # find(#)      returns the object
+        # find([#])    returns an array of the object
+        # find(#, #, ...) or find([#, #, ...])   returns an array of the objects
+        def find(*args)
+          request_array = args.size == 1 && args[0].kind_of?(Array)
+          args = args.flatten
+          if args.size == 1
+            res = limit(1).where(:id => args[0]).to_a
+            raise "Couldn't find resource with 'id' #{args}" if res.blank?
+            return request_array ? res : res.first
+          end
+          raise "Multiple resource find is not yet supported"
+        end
+
+        def find_by(args)
+          limit(1).where(args).first
+        end
+
         def self.subclass(name)
           klass_name = name.camelize
 
