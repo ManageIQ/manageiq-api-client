@@ -4,6 +4,9 @@ module ManageIQ
       class Collection
         include ActionMixin
 
+        CUSTOM_INSPECT_EXCLUSIONS = [:@client].freeze
+        include CustomInspectMixin
+
         def initialize(*_args)
           raise "Cannot instantiate a #{self.class}"
         end

@@ -4,6 +4,9 @@ module ManageIQ
       class Resource
         include ActionMixin
 
+        CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
+        include CustomInspectMixin
+
         def initialize(*_args)
           raise "Cannot instantiate a #{self.class}"
         end
@@ -17,6 +20,7 @@ module ManageIQ
             klass = Class.new(self) do
               attr_accessor :data
               attr_accessor :collection
+              attr_accessor :actions
 
               delegate :client, :to => :@collection
 

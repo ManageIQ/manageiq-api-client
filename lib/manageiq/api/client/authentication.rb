@@ -13,6 +13,9 @@ module ManageIQ
           :password => "smartvm"
         }.freeze
 
+        CUSTOM_INSPECT_EXCLUSIONS = [:@password].freeze
+        include CustomInspectMixin
+
         def initialize(options = {})
           @user, @password = fetch_credentials(options)
           @token, @miqtoken, @group = options.values_at(:token, :miqtoken, :group)
@@ -20,10 +23,6 @@ module ManageIQ
           unless token || miqtoken
             raise "Must specify both a user and a password" if user.blank? || password.blank?
           end
-        end
-
-        def inspect
-          super.gsub(/@password=".+?"(, )?/, "")
         end
 
         def self.auth_options_specified?(options)

@@ -7,6 +7,7 @@ require "more_core_extensions/all"
 
 require "manageiq/api/client/client"
 require "manageiq/api/client/mixins/action_mixin"
+require "manageiq/api/client/mixins/custom_inspect_mixin"
 
 require "manageiq/api/client/api"
 require "manageiq/api/client/action"
