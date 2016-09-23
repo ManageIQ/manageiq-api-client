@@ -23,12 +23,17 @@ module ManageIQ
         def find(*args)
           request_array = args.size == 1 && args[0].kind_of?(Array)
           args = args.flatten
-          if args.size == 1
+          case args.size
+          when 0
+            raise "Couldn't find resource without an 'id'"
+          when 1
             res = limit(1).where(:id => args[0]).to_a
             raise "Couldn't find resource with 'id' #{args}" if res.blank?
-            return request_array ? res : res.first
+            request_array ? res : res.first
+          else
+            raise "Multiple resource find is not supported" unless respond_to?(:query)
+            query args.collect { |id| { "id" => id } }
           end
-          raise "Multiple resource find is not yet supported"
         end
 
         def find_by(args)
