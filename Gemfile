@@ -6,6 +6,7 @@ gemspec
 group :test do
   gem "simplecov", :require => false
   gem "codeclimate-test-reporter", "~> 1.0.0", :require => false
+  gem "rspec", "~> 3.0"
 end
 
 # Load developer specific Gemfile
