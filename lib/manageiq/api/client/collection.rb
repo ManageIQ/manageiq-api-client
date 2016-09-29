@@ -32,7 +32,7 @@ module ManageIQ
             request_array ? res : res.first
           else
             raise "Multiple resource find is not supported" unless respond_to?(:query)
-            query args.collect { |id| { "id" => id } }
+            query(args.collect { |id| { "id" => id } })
           end
         end
 
