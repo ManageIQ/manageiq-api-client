@@ -153,7 +153,7 @@ module ManageIQ
           args = args.flatten
           args = args.first if args.size == 1 && args.first.kind_of?(Hash)
           args = {} if args.blank?
-          block_data = block ? yield(block) : {}
+          block_data = block ? block.call : {}
           body = { "action" => action_name }
           if block_data.present?
             if block_data.kind_of?(Array)

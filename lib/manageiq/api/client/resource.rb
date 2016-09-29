@@ -59,7 +59,7 @@ module ManageIQ
           res = client.send(action.method, URI(action.href)) do
             body = { "action" => action.name }
             resource = args.dup
-            resource.merge!(yield(block)) if block
+            resource.merge!(block.call) if block
             resource.present? ? body.merge("resource" => resource) : body
           end
           action_result(res)

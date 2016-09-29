@@ -8,7 +8,7 @@ module ActionMixin
   end
 
   def actions_present?
-    @actions.present? if @actions
+    @actions.present?
   end
 
   def fetch_actions(resource_hash)
@@ -16,11 +16,12 @@ module ActionMixin
   end
 
   def find_action(action)
-    @actions.detect { |a| a.name == action.to_s } if @actions
+    action_str = action.to_s
+    @actions.detect { |a| a.name == action_str } if @actions
   end
 
   def action_defined?(action)
-    find_action(action) ? true : false
+    find_action(action)
   end
 
   def actions=(action_array)
