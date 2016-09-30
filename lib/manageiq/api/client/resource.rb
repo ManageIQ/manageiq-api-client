@@ -7,51 +7,46 @@ module ManageIQ
         CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
         include CustomInspectMixin
 
-        def initialize(*_args)
-          raise "Cannot instantiate a #{self.class}"
-        end
-
         def self.subclass(name)
-          klass_name = name.classify
+          name = name.classify
 
-          if const_defined?(klass_name, false)
-            const_get(klass_name, false)
+          if const_defined?(name, false)
+            const_get(name, false)
           else
-            klass = Class.new(self) do
-              attr_accessor :data
-              attr_accessor :collection
-              attr_accessor :actions
-
-              delegate :client, :to => :@collection
-
-              define_method("initialize") do |collection, resource_hash|
-                @collection = collection
-                @data = resource_hash.except("actions")
-                add_href
-                fetch_actions(resource_hash)
-              end
-
-              define_method("method_missing") do |sym, *args, &block|
-                reload_actions unless actions_present?
-                if data.key?(sym.to_s)
-                  data[sym.to_s]
-                elsif action_defined?(sym)
-                  exec_action(sym, *args, &block)
-                else
-                  super(sym, *args, &block)
-                end
-              end
-
-              define_method("respond_to_missing?") do |sym, *args, &block|
-                data.key?(sym.to_s) || action_defined?(sym) || super(sym, *args, &block)
-              end
-            end
-            const_set(klass_name, klass)
-            klass
+            const_set(name, Class.new(self))
           end
         end
 
+        attr_accessor :data
+        attr_accessor :collection
+        attr_accessor :actions
+
+        delegate :client, :to => :collection
+
+        def initialize(collection, resource_hash)
+          raise "Cannot instantiate a Resource directly" if instance_of?(Resource)
+          @collection = collection
+          @data = resource_hash.except("actions")
+          add_href
+          fetch_actions(resource_hash)
+        end
+
         private
+
+        def method_missing(sym, *args, &block)
+          reload_actions unless actions_present?
+          if data.key?(sym.to_s)
+            data[sym.to_s]
+          elsif action_defined?(sym)
+            exec_action(sym, *args, &block)
+          else
+            super
+          end
+        end
+
+        def respond_to_missing?(sym, *_)
+          data.key?(sym.to_s) || action_defined?(sym) || super
+        end
 
         def exec_action(name, args = {}, &block)
           raise "Action #{name} parameters must be a hash" if !args.kind_of?(Hash)
