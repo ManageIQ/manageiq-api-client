@@ -2,8 +2,6 @@ module ManageIQ
   module API
     class Client
       class Connection
-        include CustomInspectMixin
-
         attr_accessor :url
         attr_accessor :authentication
         attr_accessor :client
