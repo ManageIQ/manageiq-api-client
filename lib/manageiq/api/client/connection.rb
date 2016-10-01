@@ -66,6 +66,7 @@ module ManageIQ
           ssl_options = @options[:ssl]
           Faraday.new(:url => url, :ssl => ssl_options) do |faraday|
             faraday.request(:url_encoded) # form-encode POST params
+            faraday.response(:logger, client.logger)
             faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
             faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
             if authentication.token.blank? && authentication.miqtoken.blank?
