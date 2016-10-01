@@ -17,7 +17,7 @@ module ManageIQ
           end
         end
 
-        attr_accessor :data
+        attr_accessor :attributes
         attr_accessor :collection
         attr_accessor :actions
 
@@ -26,7 +26,7 @@ module ManageIQ
         def initialize(collection, resource_hash)
           raise "Cannot instantiate a Resource directly" if instance_of?(Resource)
           @collection = collection
-          @data = resource_hash.except("actions")
+          @attributes = resource_hash.except("actions")
           add_href
           fetch_actions(resource_hash)
         end
@@ -35,8 +35,8 @@ module ManageIQ
 
         def method_missing(sym, *args, &block)
           reload_actions unless actions_present?
-          if data.key?(sym.to_s)
-            data[sym.to_s]
+          if attributes.key?(sym.to_s)
+            attributes[sym.to_s]
           elsif action_defined?(sym)
             exec_action(sym, *args, &block)
           else
@@ -45,7 +45,7 @@ module ManageIQ
         end
 
         def respond_to_missing?(sym, *_)
-          data.key?(sym.to_s) || action_defined?(sym) || super
+          attributes.key?(sym.to_s) || action_defined?(sym) || super
         end
 
         def exec_action(name, args = {}, &block)
@@ -62,15 +62,15 @@ module ManageIQ
 
         # Let's add href's here if not yet defined by the server
         def add_href
-          return if data.key?("href")
-          return unless data.key?("id")
-          data["href"] = client.connection.api_path("#{collection.name}/#{data['id']}")
+          return if attributes.key?("href")
+          return unless attributes.key?("id")
+          attributes["href"] = client.connection.api_path("#{collection.name}/#{attributes['id']}")
         end
 
         def reload_actions
-          return unless data.key?("href")
-          resource_hash = client.get(data["href"])
-          @data = resource_hash.except("actions")
+          return unless attributes.key?("href")
+          resource_hash = client.get(attributes["href"])
+          @attributes = resource_hash.except("actions")
           fetch_actions(resource_hash)
         end
       end

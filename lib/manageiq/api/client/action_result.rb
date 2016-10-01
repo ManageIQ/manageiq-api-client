@@ -2,11 +2,11 @@ module ManageIQ
   module API
     class Client
       class ActionResult
-        attr_accessor :data
+        attr_accessor :attributes
 
         def initialize(action_hash)
           raise "Not a valid Action Result specified" unless self.class.an_action_result?(action_hash)
-          @data = action_hash.dup
+          @attributes = action_hash.dup
         end
 
         def self.an_action_result?(hash)
@@ -22,11 +22,11 @@ module ManageIQ
         end
 
         def method_missing(sym, *args, &block)
-          data && data.key?(sym.to_s) ? data[sym.to_s] : super(sym, *args, &block)
+          attributes && attributes.key?(sym.to_s) ? attributes[sym.to_s] : super(sym, *args, &block)
         end
 
         def respond_to_missing?(sym, *args, &block)
-          data && data.key?(sym.to_s) || super(sym, *args, &block)
+          attributes && attributes.key?(sym.to_s) || super(sym, *args, &block)
         end
       end
     end
