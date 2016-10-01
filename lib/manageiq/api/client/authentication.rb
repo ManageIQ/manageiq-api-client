@@ -2,11 +2,11 @@ module ManageIQ
   module API
     class Client
       class Authentication
-        attr_accessor :user
-        attr_accessor :password
-        attr_accessor :token
-        attr_accessor :miqtoken
-        attr_accessor :group
+        attr_reader :user
+        attr_reader :password
+        attr_reader :token
+        attr_reader :miqtoken
+        attr_reader :group
 
         DEFAULTS = {
           :user     => "admin",

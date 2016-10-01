@@ -1,17 +1,17 @@
 module ManageIQ
   module API
     class Client
-      attr_accessor :options
-      attr_accessor :logger
-      attr_accessor :url
-      attr_accessor :authentication
-      attr_accessor :connection
+      attr_reader :options
+      attr_reader :logger
+      attr_reader :url
+      attr_reader :authentication
+      attr_reader :connection
 
-      attr_accessor :api
-      attr_accessor :settings
-      attr_accessor :identity
-      attr_accessor :authorization
-      attr_accessor :collections
+      attr_reader :api
+      attr_reader :settings
+      attr_reader :identity
+      attr_reader :authorization
+      attr_reader :collections
 
       DEFAULT_URL = URI.parse("http://localhost:3000")
 

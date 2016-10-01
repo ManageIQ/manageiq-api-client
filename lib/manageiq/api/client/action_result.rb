@@ -2,7 +2,7 @@ module ManageIQ
   module API
     class Client
       class ActionResult
-        attr_accessor :attributes
+        attr_reader :attributes
 
         def initialize(action_hash)
           raise "Not a valid Action Result specified" unless self.class.an_action_result?(action_hash)
