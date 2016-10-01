@@ -84,6 +84,10 @@ module ManageIQ
           end
         end
 
+        def options
+          @collection_options ||= CollectionOptions.new(client.options(name))
+        end
+
         private
 
         def method_missing(sym, *args, &block)

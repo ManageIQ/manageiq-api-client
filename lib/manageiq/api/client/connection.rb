@@ -5,7 +5,7 @@ module ManageIQ
         attr_reader :url
         attr_reader :authentication
         attr_reader :client
-        attr_reader :options
+        attr_reader :connection_options
         attr_reader :response
         attr_reader :error
 
@@ -16,7 +16,7 @@ module ManageIQ
 
         def initialize(client, connection_options = {})
           @client = client
-          @options = connection_options
+          @connection_options = connection_options
           @error = nil
         end
 
@@ -45,6 +45,11 @@ module ManageIQ
           json_response
         end
 
+        def options(path = "", params = {})
+          send_request(:options, path, params)
+          json_response
+        end
+
         def json_response
           resp = response.body.strip
           resp.blank? ? {} : JSON.parse(resp)
@@ -63,7 +68,7 @@ module ManageIQ
         private
 
         def handle
-          ssl_options = @options[:ssl]
+          ssl_options = @connection_options[:ssl]
           Faraday.new(:url => url, :ssl => ssl_options) do |faraday|
             faraday.request(:url_encoded) # form-encode POST params
             faraday.response(:logger, client.logger)
@@ -78,8 +83,7 @@ module ManageIQ
         def send_request(method, path, params, &block)
           begin
             @error = nil
-            @response = handle.send(method) do |request|
-              request.url api_path(path)
+            @response = handle.run_request(method.to_sym, api_path(path), nil, nil) do |request|
               request.headers[:content_type]  = CONTENT_TYPE
               request.headers[:accept]        = CONTENT_TYPE
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?

@@ -1,7 +1,7 @@
 module ManageIQ
   module API
     class Client
-      attr_reader :options
+      attr_reader :client_options
       attr_reader :logger
       attr_reader :url
       attr_reader :authentication
@@ -23,11 +23,11 @@ module ManageIQ
         @logger = logger
       end
 
-      def initialize(options = {})
-        @options = options.dup
-        @logger = options[:logger] || self.class.logger
-        @url = extract_url(options)
-        @authentication = ManageIQ::API::Client::Authentication.new(options)
+      def initialize(client_options = {})
+        @client_options = client_options.dup
+        @logger = client_options[:logger] || self.class.logger
+        @url = extract_url(client_options)
+        @authentication = ManageIQ::API::Client::Authentication.new(client_options)
         reconnect
       end
 
@@ -54,11 +54,11 @@ module ManageIQ
       end
 
       def reconnect
-        @connection = ManageIQ::API::Client::Connection.new(self, options.slice(:ssl))
+        @connection = ManageIQ::API::Client::Connection.new(self, client_options.slice(:ssl))
         load_definitions
       end
 
-      delegate :get, :post, :put, :patch, :delete, :error, :to => :connection
+      delegate :get, :post, :put, :patch, :delete, :options, :error, :to => :connection
 
       private
 
