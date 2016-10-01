@@ -2,6 +2,7 @@ module ManageIQ
   module API
     class Client
       attr_accessor :options
+      attr_accessor :logger
       attr_accessor :url
       attr_accessor :authentication
       attr_accessor :connection
@@ -14,8 +15,17 @@ module ManageIQ
 
       DEFAULT_URL = URI.parse("http://localhost:3000")
 
+      def self.logger
+        @logger ||= NullLogger.new
+      end
+
+      def self.logger=(logger)
+        @logger = logger
+      end
+
       def initialize(options = {})
         @options = options.dup
+        @logger = options[:logger] || self.class.logger
         @url = extract_url(options)
         @authentication = ManageIQ::API::Client::Authentication.new(options)
         reconnect
