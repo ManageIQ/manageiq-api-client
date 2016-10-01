@@ -52,6 +52,10 @@ module ManageIQ
           limit(1).where(args).first
         end
 
+        def pluck(*attrs)
+          select(*attrs).to_a.pluck(*attrs)
+        end
+
         def self.subclass(name)
           name = name.camelize
 
