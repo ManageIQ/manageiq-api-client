@@ -2,12 +2,12 @@ module ManageIQ
   module API
     class Client
       class Connection
-        attr_accessor :url
-        attr_accessor :authentication
-        attr_accessor :client
-        attr_accessor :options
-        attr_accessor :response
-        attr_accessor :error
+        attr_reader :url
+        attr_reader :authentication
+        attr_reader :client
+        attr_reader :options
+        attr_reader :response
+        attr_reader :error
 
         delegate :url, :authentication, :to => :client
 

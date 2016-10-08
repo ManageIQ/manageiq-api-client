@@ -17,9 +17,9 @@ module ManageIQ
           end
         end
 
-        attr_accessor :attributes
-        attr_accessor :collection
-        attr_accessor :actions
+        attr_reader :attributes
+        attr_reader :collection
+        attr_reader :actions
 
         delegate :client, :to => :collection
 

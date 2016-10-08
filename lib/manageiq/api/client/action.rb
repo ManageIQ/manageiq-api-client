@@ -2,9 +2,9 @@ module ManageIQ
   module API
     class Client
       class Action
-        attr_accessor :name
-        attr_accessor :method
-        attr_accessor :href
+        attr_reader :name
+        attr_reader :method
+        attr_reader :href
 
         def initialize(action_hash)
           @name, @method, @href = action_hash.values_at("name", "method", "href")

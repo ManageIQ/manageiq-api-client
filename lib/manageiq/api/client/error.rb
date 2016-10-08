@@ -2,10 +2,10 @@ module ManageIQ
   module API
     class Client
       class Error
-        attr_accessor :status
-        attr_accessor :kind
-        attr_accessor :message
-        attr_accessor :klass
+        attr_reader :status
+        attr_reader :kind
+        attr_reader :message
+        attr_reader :klass
 
         def initialize(status = 0, json_response = {})
           update(status, json_response)

@@ -2,15 +2,15 @@ module ManageIQ
   module API
     class Client
       class Identity
-        attr_accessor :userid
-        attr_accessor :name
-        attr_accessor :user_href
-        attr_accessor :group
-        attr_accessor :group_href
-        attr_accessor :role
-        attr_accessor :role_href
-        attr_accessor :tenant
-        attr_accessor :groups
+        attr_reader :userid
+        attr_reader :name
+        attr_reader :user_href
+        attr_reader :group
+        attr_reader :group_href
+        attr_reader :role
+        attr_reader :role_href
+        attr_reader :tenant
+        attr_reader :groups
 
         def initialize(identity_spec)
           @userid      = identity_spec["userid"]

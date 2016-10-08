@@ -11,12 +11,12 @@ module ManageIQ
 
         ACTIONS_RETURNING_RESOURCES = %w(create query).freeze
 
-        attr_accessor :client
+        attr_reader :client
 
-        attr_accessor :name
-        attr_accessor :href
-        attr_accessor :description
-        attr_accessor :actions
+        attr_reader :name
+        attr_reader :href
+        attr_reader :description
+        attr_reader :actions
 
         def initialize(client, collection_spec)
           raise "Cannot instantiate a Collection directly" if instance_of?(Collection)
