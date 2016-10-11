@@ -48,7 +48,8 @@ module ManageIQ
           attributes.key?(sym.to_s) || action_defined?(sym) || super
         end
 
-        def exec_action(name, args = {}, &block)
+        def exec_action(name, args = nil, &block)
+          args ||= {}
           raise "Action #{name} parameters must be a hash" if !args.kind_of?(Hash)
           action = find_action(name)
           res = client.send(action.method, URI(action.href)) do
