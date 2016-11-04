@@ -31,6 +31,11 @@ module ManageIQ
           fetch_actions(resource_hash)
         end
 
+        def [](attr)
+          attr_str = attr.to_s
+          attributes[attr_str] if attributes.key?(attr_str)
+        end
+
         private
 
         def method_missing(sym, *args, &block)
