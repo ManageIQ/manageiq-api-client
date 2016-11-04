@@ -11,6 +11,8 @@ module ManageIQ
       attr_reader :settings
       attr_reader :identity
       attr_reader :authorization
+      attr_reader :server_info
+      attr_reader :product_info
       attr_reader :collections
 
       DEFAULT_URL = URI.parse("http://localhost:3000")
@@ -37,6 +39,8 @@ module ManageIQ
         @settings      = Hash(entrypoint["settings"]).dup
         @identity      = ManageIQ::API::Client::Identity.new(Hash(entrypoint["identity"]))
         @authorization = Hash(entrypoint["authorization"]).dup
+        @server_info   = ServerInfo.new(Hash(entrypoint["server_info"]))
+        @product_info  = ProductInfo.new(Hash(entrypoint["product_info"]))
         @collections   = load_collections(entrypoint["collections"])
       end
 
