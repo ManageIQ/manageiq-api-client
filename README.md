@@ -35,9 +35,9 @@ miq = ManageIQ::API::Client.new(
   :password => "password"
 )
 
-miq.vms.search(:filter => "id=320").first.start
+miq.vms.where(:id => 320).first.start
 
-miq.vms.search(:filter => "name='test_*'").each do |vm|
+miq.vms.limit(5).each do |vm|
   vm.suspend if vm.hardware.memory_mb >= 8192
 end
 ```
