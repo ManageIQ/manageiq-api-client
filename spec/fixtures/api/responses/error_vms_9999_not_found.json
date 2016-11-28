@@ -1,0 +1,7 @@
+{
+  "error": {
+    "kind": "not_found",
+    "message": "Couldn't find Vm with 'id'=9999 [WHERE \"vms\".\"type\" IN ('Vm', 'ManageIQ::Providers::CloudManager::Vm', 'ManageIQ::Providers::InfraManager::Vm', 'VmServer', 'ManageIQ::Providers::Amazon::CloudManager::Vm', 'ManageIQ::Providers::Openstack::CloudManager::Vm', 'ManageIQ::Providers::Azure::CloudManager::Vm', 'ManageIQ::Providers::Google::CloudManager::Vm', 'ManageIQ::Providers::Vmware::CloudManager::Vm', 'ManageIQ::Providers::Vmware::InfraManager::Vm', 'ManageIQ::Providers::Microsoft::InfraManager::Vm', 'ManageIQ::Providers::Redhat::InfraManager::Vm', 'VmXen') AND \"vms\".\"template\" = $1]",
+    "klass": "ActiveRecord::RecordNotFound"
+  }
+}
