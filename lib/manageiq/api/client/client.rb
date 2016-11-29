@@ -8,7 +8,7 @@ module ManageIQ
       attr_reader :connection
 
       attr_reader :api
-      attr_reader :settings
+      attr_reader :user_settings
       attr_reader :identity
       attr_reader :authorization
       attr_reader :server_info
@@ -36,7 +36,7 @@ module ManageIQ
       def load_definitions
         entrypoint     = connection.get("", :attributes => "authorization")
         @api           = ManageIQ::API::Client::API.new(entrypoint)
-        @settings      = Hash(entrypoint["settings"]).dup
+        @user_settings = Hash(entrypoint["settings"]).dup
         @identity      = ManageIQ::API::Client::Identity.new(Hash(entrypoint["identity"]))
         @authorization = Hash(entrypoint["authorization"]).dup
         @server_info   = ServerInfo.new(Hash(entrypoint["server_info"]))
