@@ -18,9 +18,13 @@ module ManageIQ
         def update(status, json_response = {})
           @status = status
           @kind, @message, @klass = nil
-          error_hash = json_response["error"]
-          if status >= 400 && error_hash.present?
-            @kind, @message, @klass = error_hash.values_at("kind", "message", "klass")
+          error = json_response["error"]
+          if status >= 400 && error.present?
+            if error.kind_of?(Hash)
+              @kind, @message, @klass = error.values_at("kind", "message", "klass")
+            else
+              @message = error
+            end
           end
         end
       end
