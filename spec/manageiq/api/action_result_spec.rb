@@ -3,7 +3,7 @@ describe ManageIQ::API::Client::ActionResult do
   let(:success_action_result) { {"success" => true, "message" => "Vm powered on"} }
   let(:failed_action_result) { {"success" => false, "message" => "Vm could not be powered on"} }
 
-  describe "#new" do
+  describe ".new" do
     it "does not create an action result given an invalid hash" do
       expect { described_class.new("bogus" => "data") }.to raise_error(invalid_action_result_error)
     end
@@ -17,7 +17,7 @@ describe ManageIQ::API::Client::ActionResult do
     end
   end
 
-  describe "#an_action_result?" do
+  describe ".an_action_result?" do
     it "fails with a nil action result" do
       expect(described_class.an_action_result?(nil)).to be_falsey
     end
@@ -35,7 +35,7 @@ describe ManageIQ::API::Client::ActionResult do
     end
   end
 
-  describe "#succeeded?" do
+  describe ".succeeded?" do
     it "returns true with a successful action result" do
       expect(described_class.new(success_action_result).succeeded?).to be_truthy
     end
@@ -45,7 +45,7 @@ describe ManageIQ::API::Client::ActionResult do
     end
   end
 
-  describe "#failed?" do
+  describe ".failed?" do
     it "returns false with a successful action result" do
       expect(described_class.new(success_action_result).failed?).to be_falsey
     end
@@ -55,7 +55,7 @@ describe ManageIQ::API::Client::ActionResult do
     end
   end
 
-  describe "#method_missing" do
+  describe ".method_missing" do
     it "allows accessing action result success by attribute" do
       expect(described_class.new(success_action_result).success).to eq(success_action_result["success"])
     end

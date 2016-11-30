@@ -1,7 +1,7 @@
 describe ManageIQ::API::Client::Authentication do
   let(:user_and_password_error) { "Must specify both a user and a password" }
 
-  describe "#new" do
+  describe ".new" do
     it "does not create a new authentication with missing password" do
       expect { described_class.new(:user => "user") }.to raise_error(user_and_password_error)
     end
@@ -31,7 +31,7 @@ describe ManageIQ::API::Client::Authentication do
     end
   end
 
-  describe "#auth_options_specified" do
+  describe ".auth_options_specified" do
     it "returns true with credentials" do
       expect(described_class.auth_options_specified?(:user => "user", :password => "pass")).to be_truthy
     end

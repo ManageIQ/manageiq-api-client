@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::ServerInfo do
-  describe "#new" do
+  describe ".new" do
     let(:server_info_hash) do
       {
         "version"   => "master",

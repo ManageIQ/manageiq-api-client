@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::API do
-  describe "#new" do
+  describe ".new" do
     let(:api_version_220) do
       {
         "name" => "2.2.0",

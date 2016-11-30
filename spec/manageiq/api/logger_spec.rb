@@ -6,7 +6,7 @@ describe ManageIQ::API::Client do
       .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
   end
 
-  describe "#logger" do
+  describe ".logger" do
     it "returns default logger" do
       expect(described_class.logger).to be_a(ManageIQ::API::Client::NullLogger)
     end
@@ -18,7 +18,7 @@ describe ManageIQ::API::Client do
     end
   end
 
-  describe "#logger=" do
+  describe ".logger=" do
     it "sets a default logger" do
       my_logger = Logger.new(STDOUT)
       described_class.logger = my_logger
@@ -29,7 +29,7 @@ describe ManageIQ::API::Client do
     end
   end
 
-  describe "#new" do
+  describe ".new" do
     it "support a user specified logger" do
       my_logger = Logger.new(STDOUT)
 

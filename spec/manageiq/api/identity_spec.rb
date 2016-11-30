@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::Identity do
-  describe "#new" do
+  describe ".new" do
     let(:identity_hash) do
       {
         "userid"     => "admin",

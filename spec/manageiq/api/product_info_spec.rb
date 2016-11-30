@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::ProductInfo do
-  describe "#new" do
+  describe ".new" do
     let(:product_info_hash) do
       {
         "name"                 => "ManageIQ",

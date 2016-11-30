@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::CollectionOptions do
-  describe "#new" do
+  describe ".new" do
     let(:groups_options_hash) do
       {
         "virtual_attributes" => %w(

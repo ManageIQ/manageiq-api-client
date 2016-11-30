@@ -25,7 +25,7 @@ describe ManageIQ::API::Client::Error do
     }
   end
 
-  describe "#new" do
+  describe ".new" do
     it "creates a new error object" do
       expect(described_class.new(bad_request_error[:status], bad_request_error[:response])).to be_a(described_class)
     end
@@ -36,7 +36,7 @@ describe ManageIQ::API::Client::Error do
     end
   end
 
-  describe "#clear" do
+  describe ".clear" do
     it "clears an error" do
       error = described_class.new(not_found_error[:status], not_found_error[:response])
       error.clear
@@ -48,7 +48,7 @@ describe ManageIQ::API::Client::Error do
     end
   end
 
-  describe "#update" do
+  describe ".update" do
     it "updates an error" do
       error = described_class.new(not_found_error[:status], not_found_error[:response])
       error.update(bad_request_error[:status], bad_request_error[:response])

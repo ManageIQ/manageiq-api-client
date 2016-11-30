@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::Action do
-  describe "#new" do
+  describe ".new" do
     let(:href) { "http://localhost:3000/api/vms/10" }
     let(:name) { "start" }
     let(:method) { "post" }

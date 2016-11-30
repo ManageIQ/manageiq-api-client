@@ -1,5 +1,5 @@
 describe ManageIQ::API::Client::ApiVersion do
-  describe "#new" do
+  describe ".new" do
     let(:api_version_hash) do
       {
         "name" => "2.3.0",

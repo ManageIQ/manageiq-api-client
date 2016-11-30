@@ -5,7 +5,7 @@ describe ManageIQ::API::Client do
     end
   end
 
-  describe "#new" do
+  describe ".new" do
     before do
       @entrypoint_response = api_file_fixture("responses/entrypoint.json")
     end
@@ -107,7 +107,7 @@ describe ManageIQ::API::Client do
     end
   end
 
-  describe "#load_definitions" do
+  describe ".load_definitions" do
     before do
       @entrypoint_response = api_file_fixture("responses/entrypoint.json")
     end
@@ -190,7 +190,7 @@ describe ManageIQ::API::Client do
     end
   end
 
-  describe "#update_authentication" do
+  describe ".update_authentication" do
     before do
       @entrypoint_response = api_file_fixture("responses/entrypoint.json")
     end
