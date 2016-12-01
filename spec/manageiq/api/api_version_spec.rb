@@ -1,9 +1,11 @@
 describe ManageIQ::API::Client::ApiVersion do
+  let(:api_url) { "http://localhost:3000/api" }
+
   describe ".new" do
     let(:api_version_hash) do
       {
         "name" => "2.3.0",
-        "href" => "http://localhost:3000/api/v2.3.0"
+        "href" => "#{api_url}/v2.3.0"
       }
     end
 

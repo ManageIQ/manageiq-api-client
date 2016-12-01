@@ -1,4 +1,7 @@
 describe ManageIQ::API::Client do
+  let(:api_url) { "http://localhost:3000/api" }
+  let(:entrypoint_request_url) { "#{api_url}?attributes=authorization" }
+
   describe "implementation" do
     it 'declares a version number' do
       expect(ManageIQ::API::Client::VERSION).not_to be nil
@@ -11,14 +14,14 @@ describe ManageIQ::API::Client do
     end
 
     it "creates a new client" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       expect(described_class.new).to be_a(described_class)
     end
 
     it "supports optional appliance url" do
-      stub_request(:get, "https://miq_appliance.example.com/api/?attributes=authorization")
+      stub_request(:get, "https://miq_appliance.example.com/api?attributes=authorization")
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       miq = described_class.new(:url => "https://miq_appliance.example.com")
@@ -32,7 +35,7 @@ describe ManageIQ::API::Client do
     end
 
     it "supports default user authentication" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:authorization => 'Basic YWRtaW46c21hcnR2bQ=='})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -47,7 +50,7 @@ describe ManageIQ::API::Client do
     end
 
     it "supports optional user authentication" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:authorization => 'Basic Zm9vOmJhcg=='})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -62,7 +65,7 @@ describe ManageIQ::API::Client do
     end
 
     it "supports optional user token" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:x_auth_token => 'user_token'})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -77,7 +80,7 @@ describe ManageIQ::API::Client do
     end
 
     it "supports optional system token" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:x_miq_token => 'system_token'})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -92,7 +95,7 @@ describe ManageIQ::API::Client do
     end
 
     it "supports optional authorization group" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:x_miq_group => 'special_group'})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -115,7 +118,7 @@ describe ManageIQ::API::Client do
     it "exposes api information" do
       entrypoint = JSON.parse(@entrypoint_response)
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       miq = described_class.new
@@ -131,7 +134,7 @@ describe ManageIQ::API::Client do
     it "exposes user_settings" do
       user_settings = JSON.parse(@entrypoint_response)["settings"]
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       miq = described_class.new
@@ -142,7 +145,7 @@ describe ManageIQ::API::Client do
     it "exposes identity" do
       identity = JSON.parse(@entrypoint_response)["identity"]
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       miq = described_class.new
@@ -162,7 +165,7 @@ describe ManageIQ::API::Client do
     it "exposes server_info" do
       server_info = JSON.parse(@entrypoint_response)["server_info"]
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       miq = described_class.new
@@ -176,7 +179,7 @@ describe ManageIQ::API::Client do
     it "exposes product_info" do
       product_info = JSON.parse(@entrypoint_response)["product_info"]
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       miq = described_class.new
@@ -196,7 +199,7 @@ describe ManageIQ::API::Client do
     end
 
     it "updates a client authentication and reconnects" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:authorization => 'Basic YWRtaW46c21hcnR2bQ=='})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -209,7 +212,7 @@ describe ManageIQ::API::Client do
       expect(miq.authentication.token).to    be_nil
       expect(miq.authentication.miqtoken).to be_nil
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:x_auth_token => 'user_temporary_token'})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -223,7 +226,7 @@ describe ManageIQ::API::Client do
     end
 
     it "group re-authorization updates a client's authentication and reconnects" do
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:authorization => 'Basic YWRtaW46c21hcnR2bQ==', :x_miq_group => "basic_users"})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -236,7 +239,7 @@ describe ManageIQ::API::Client do
       expect(miq.authentication.token).to    be_nil
       expect(miq.authentication.miqtoken).to be_nil
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .with(:headers => {:authorization => 'Basic YWRtaW46c21hcnR2bQ==', :x_miq_group => "super_admins"})
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
@@ -254,49 +257,49 @@ describe ManageIQ::API::Client do
     before do
       @entrypoint_response = api_file_fixture("responses/entrypoint.json")
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       @miq = described_class.new
     end
 
     it "get is supported" do
-      stub_request(:get, "http://localhost:3000/api/vms")
+      stub_request(:get, "#{api_url}/vms")
         .to_return(:status => 200, :body => '{"success_method": "get"}', :headers => {})
 
       expect(@miq.get("vms")).to eq("success_method" => "get")
     end
 
     it "post is supported" do
-      stub_request(:post, "http://localhost:3000/api/hosts")
+      stub_request(:post, "#{api_url}/hosts")
         .to_return(:status => 200, :body => '{"success_method": "post"}', :headers => {})
 
       expect(@miq.post("hosts")).to eq("success_method" => "post")
     end
 
     it "put is supported" do
-      stub_request(:put, "http://localhost:3000/api/templates")
+      stub_request(:put, "#{api_url}/templates")
         .to_return(:status => 200, :body => '{"success_method": "put"}', :headers => {})
 
       expect(@miq.put("templates")).to eq("success_method" => "put")
     end
 
     it "patch is supported" do
-      stub_request(:patch, "http://localhost:3000/api/instances")
+      stub_request(:patch, "#{api_url}/instances")
         .to_return(:status => 200, :body => '{"success_method": "patch"}', :headers => {})
 
       expect(@miq.patch("instances")).to eq("success_method" => "patch")
     end
 
     it "delete is supported" do
-      stub_request(:delete, "http://localhost:3000/api/vms/999")
+      stub_request(:delete, "#{api_url}/vms/999")
         .to_return(:status => 200, :body => '{"success_method": "delete"}', :headers => {})
 
       expect(@miq.delete("vms/999")).to eq("success_method" => "delete")
     end
 
     it "options is supported" do
-      stub_request(:options, "http://localhost:3000/api/groups")
+      stub_request(:options, "#{api_url}/groups")
         .to_return(:status => 200, :body => '{"success_method": "options"}', :headers => {})
 
       expect(@miq.options("groups")).to eq("success_method" => "options")
@@ -307,7 +310,7 @@ describe ManageIQ::API::Client do
     before do
       @entrypoint_response = api_file_fixture("responses/entrypoint.json")
 
-      stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+      stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
 
       @miq = described_class.new
@@ -316,7 +319,7 @@ describe ManageIQ::API::Client do
     it "are properly raised for routing errors" do
       error_response_json = api_file_fixture("responses/error_routing.json")
 
-      stub_request(:get, "http://localhost:3000/api/bogus_collection")
+      stub_request(:get, "#{api_url}/bogus_collection")
         .to_return(:status => 404, :body => error_response_json, :headers => {})
 
       error_response = JSON.parse(error_response_json)
@@ -326,7 +329,7 @@ describe ManageIQ::API::Client do
     it "are properly raised for API errors" do
       error_response_json = api_file_fixture("responses/error_vms_9999_not_found.json")
 
-      stub_request(:get, "http://localhost:3000/api/vms/9999")
+      stub_request(:get, "#{api_url}/vms/9999")
         .to_return(:status => 404, :body => error_response_json, :headers => {})
 
       error_response = JSON.parse(error_response_json)

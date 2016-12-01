@@ -2,7 +2,7 @@ describe ManageIQ::API::Client do
   before do
     @entrypoint_response = api_file_fixture("responses/entrypoint.json")
 
-    stub_request(:get, "http://localhost:3000/api/?attributes=authorization")
+    stub_request(:get, "http://localhost:3000/api?attributes=authorization")
       .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
   end
 
