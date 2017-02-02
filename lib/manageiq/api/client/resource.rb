@@ -2,7 +2,7 @@ module ManageIQ
   module API
     class Client
       class Resource
-        include ActionMixin
+        include ResourceActionMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
         include CustomInspectMixin
@@ -55,31 +55,11 @@ module ManageIQ
           attributes.key?(sym.to_s) || action_defined?(sym) || subcollection_defined?(sym) || super
         end
 
-        def exec_action(name, args = nil, &block)
-          args ||= {}
-          raise "Action #{name} parameters must be a hash" if !args.kind_of?(Hash)
-          action = find_action(name)
-          res = client.send(action.method, URI(action.href)) do
-            body = { "action" => action.name }
-            resource = args.dup
-            resource.merge!(block.call) if block
-            resource.present? ? body.merge("resource" => resource) : body
-          end
-          action_result(res)
-        end
-
         # Let's add href's here if not yet defined by the server
         def add_href
           return if attributes.key?("href")
           return unless attributes.key?("id")
           attributes["href"] = client.connection.api_path("#{collection.name}/#{attributes['id']}")
-        end
-
-        def reload_actions
-          return unless attributes.key?("href")
-          resource_hash = client.get(attributes["href"])
-          @attributes = resource_hash.except("actions")
-          fetch_actions(resource_hash)
         end
 
         def subcollection_defined?(name)
