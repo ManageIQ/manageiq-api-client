@@ -1,0 +1,826 @@
+{
+  "name": "vms",
+  "count": 5,
+  "subcount": 5,
+  "resources": [
+    {
+      "href": "http://localhost:3000/api/vms/161",
+      "id": 161,
+      "vendor": "vmware",
+      "name": "aab-dev1",
+      "location": "aab-dev1/aab-dev1.vmx",
+      "host_id": 11,
+      "created_on": "2017-01-25T23:39:51Z",
+      "updated_on": "2017-01-25T23:39:51Z",
+      "storage_id": 13,
+      "guid": "91282134-e357-11e6-b22f-000a27020067",
+      "ems_id": 3,
+      "uid_ems": "564d5056-49ea-a5aa-a71d-cf9b8138430b",
+      "boot_time": "2017-01-03T20:53:30Z",
+      "tools_status": "toolsOk",
+      "standby_action": "checkpoint",
+      "power_state": "on",
+      "state_changed_on": "2017-01-25T23:39:51Z",
+      "connection_state": "connected",
+      "memory_reserve": 0,
+      "memory_reserve_expand": false,
+      "memory_limit": -1,
+      "memory_shares": 163840,
+      "memory_shares_level": "normal",
+      "cpu_reserve": 0,
+      "cpu_reserve_expand": false,
+      "cpu_limit": -1,
+      "cpu_shares": 4000,
+      "cpu_shares_level": "normal",
+      "template": false,
+      "ems_ref_obj": "vm-53",
+      "miq_group_id": 2,
+      "linked_clone": true,
+      "fault_tolerance": false,
+      "type": "ManageIQ::Providers::Vmware::InfraManager::Vm",
+      "ems_ref": "vm-53",
+      "ems_cluster_id": 5,
+      "cloud": false,
+      "raw_power_state": "poweredOn",
+      "tenant_id": 1,
+      "cpu_hot_add_enabled": true,
+      "cpu_hot_remove_enabled": false,
+      "memory_hot_add_enabled": true,
+      "memory_hot_add_limit": 262144,
+      "memory_hot_add_increment": 128,
+      "actions": [
+        {
+          "name": "add_lifecycle_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "add_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "refresh",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "shutdown_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "reboot_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "start",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "stop",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "suspend",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "shelve",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "shelve_offload",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "pause",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "request_console",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "reset",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "retire",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "delete",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "set_owner",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "set_ownership",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "scan",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/161"
+        },
+        {
+          "name": "delete",
+          "method": "delete",
+          "href": "http://localhost:3000/api/vms/161"
+        }
+      ]
+    },
+    {
+      "href": "http://localhost:3000/api/vms/165",
+      "id": 165,
+      "vendor": "vmware",
+      "name": "aab-dev2",
+      "location": "aab-dev2/aab-dev2.vmx",
+      "host_id": 14,
+      "created_on": "2017-01-25T23:39:52Z",
+      "updated_on": "2017-01-25T23:39:52Z",
+      "storage_id": 13,
+      "guid": "91503368-e357-11e6-b22f-000a27020067",
+      "ems_id": 3,
+      "uid_ems": "564d8be8-84bf-03ab-c421-a503da6db700",
+      "boot_time": "2017-01-03T21:08:47Z",
+      "tools_status": "toolsOk",
+      "standby_action": "checkpoint",
+      "power_state": "on",
+      "state_changed_on": "2017-01-25T23:39:52Z",
+      "connection_state": "connected",
+      "memory_reserve": 0,
+      "memory_reserve_expand": false,
+      "memory_limit": -1,
+      "memory_shares": 40960,
+      "memory_shares_level": "normal",
+      "cpu_reserve": 0,
+      "cpu_reserve_expand": false,
+      "cpu_limit": -1,
+      "cpu_shares": 2000,
+      "cpu_shares_level": "normal",
+      "template": false,
+      "ems_ref_obj": "vm-62",
+      "miq_group_id": 2,
+      "linked_clone": true,
+      "fault_tolerance": false,
+      "type": "ManageIQ::Providers::Vmware::InfraManager::Vm",
+      "ems_ref": "vm-62",
+      "ems_cluster_id": 5,
+      "cloud": false,
+      "raw_power_state": "poweredOn",
+      "tenant_id": 1,
+      "cpu_hot_add_enabled": true,
+      "cpu_hot_remove_enabled": false,
+      "memory_hot_add_enabled": true,
+      "memory_hot_add_limit": 65536,
+      "memory_hot_add_increment": 128,
+      "actions": [
+        {
+          "name": "add_lifecycle_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "add_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "refresh",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "shutdown_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "reboot_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "start",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "stop",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "suspend",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "shelve",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "shelve_offload",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "pause",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "request_console",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "reset",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "retire",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "delete",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "set_owner",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "set_ownership",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "scan",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/165"
+        },
+        {
+          "name": "delete",
+          "method": "delete",
+          "href": "http://localhost:3000/api/vms/165"
+        }
+      ]
+    },
+    {
+      "href": "http://localhost:3000/api/vms/166",
+      "id": 166,
+      "vendor": "vmware",
+      "name": "aab-dev3",
+      "location": "aab-dev3/aab-dev3.vmx",
+      "host_id": 12,
+      "created_on": "2017-01-25T23:39:52Z",
+      "updated_on": "2017-01-25T23:39:52Z",
+      "storage_id": 13,
+      "guid": "9158bc4a-e357-11e6-b22f-000a27020067",
+      "ems_id": 3,
+      "uid_ems": "42332064-1b21-3bc2-ee0b-09ae0799bc3b",
+      "tools_status": "toolsNotRunning",
+      "standby_action": "checkpoint",
+      "power_state": "off",
+      "state_changed_on": "2017-01-25T23:39:52Z",
+      "connection_state": "connected",
+      "memory_reserve": 0,
+      "memory_reserve_expand": false,
+      "memory_limit": -1,
+      "memory_shares": 61440,
+      "memory_shares_level": "normal",
+      "cpu_reserve": 0,
+      "cpu_reserve_expand": false,
+      "cpu_limit": -1,
+      "cpu_shares": 4000,
+      "cpu_shares_level": "normal",
+      "template": false,
+      "ems_ref_obj": "vm-63",
+      "miq_group_id": 2,
+      "linked_clone": true,
+      "fault_tolerance": false,
+      "type": "ManageIQ::Providers::Vmware::InfraManager::Vm",
+      "ems_ref": "vm-63",
+      "ems_cluster_id": 5,
+      "cloud": false,
+      "raw_power_state": "poweredOff",
+      "tenant_id": 1,
+      "cpu_hot_add_enabled": false,
+      "cpu_hot_remove_enabled": false,
+      "memory_hot_add_enabled": false,
+      "actions": [
+        {
+          "name": "add_lifecycle_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "add_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "refresh",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "shutdown_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "reboot_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "start",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "stop",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "suspend",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "shelve",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "shelve_offload",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "pause",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "request_console",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "reset",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "retire",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "delete",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "set_owner",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "set_ownership",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "scan",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/166"
+        },
+        {
+          "name": "delete",
+          "method": "delete",
+          "href": "http://localhost:3000/api/vms/166"
+        }
+      ]
+    },
+    {
+      "href": "http://localhost:3000/api/vms/185",
+      "id": 185,
+      "vendor": "vmware",
+      "name": "aab-test1",
+      "location": "aab-test1/aab-test1.vmx",
+      "host_id": 14,
+      "created_on": "2017-01-25T23:39:53Z",
+      "updated_on": "2017-01-25T23:39:53Z",
+      "storage_id": 13,
+      "guid": "91f78e74-e357-11e6-b22f-000a27020067",
+      "ems_id": 3,
+      "uid_ems": "420c8f0d-4a8f-0b6d-fc3a-0c3cfab7b33f",
+      "boot_time": "2017-01-03T21:10:55Z",
+      "tools_status": "toolsOk",
+      "standby_action": "checkpoint",
+      "power_state": "on",
+      "state_changed_on": "2017-01-25T23:39:53Z",
+      "connection_state": "connected",
+      "memory_reserve": 0,
+      "memory_reserve_expand": false,
+      "memory_limit": -1,
+      "memory_shares": 40960,
+      "memory_shares_level": "normal",
+      "cpu_reserve": 0,
+      "cpu_reserve_expand": false,
+      "cpu_limit": -1,
+      "cpu_shares": 2000,
+      "cpu_shares_level": "normal",
+      "template": false,
+      "ems_ref_obj": "vm-825",
+      "miq_group_id": 2,
+      "linked_clone": true,
+      "fault_tolerance": false,
+      "type": "ManageIQ::Providers::Vmware::InfraManager::Vm",
+      "ems_ref": "vm-825",
+      "ems_cluster_id": 5,
+      "cloud": false,
+      "raw_power_state": "poweredOn",
+      "tenant_id": 1,
+      "cpu_hot_add_enabled": true,
+      "cpu_hot_remove_enabled": false,
+      "memory_hot_add_enabled": true,
+      "memory_hot_add_limit": 65536,
+      "memory_hot_add_increment": 128,
+      "actions": [
+        {
+          "name": "add_lifecycle_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "add_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "refresh",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "shutdown_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "reboot_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "start",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "stop",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "suspend",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "shelve",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "shelve_offload",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "pause",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "request_console",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "reset",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "retire",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "delete",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "set_owner",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "set_ownership",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "scan",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185"
+        },
+        {
+          "name": "delete",
+          "method": "delete",
+          "href": "http://localhost:3000/api/vms/185"
+        }
+      ]
+    },
+    {
+      "href": "http://localhost:3000/api/vms/163",
+      "id": 163,
+      "vendor": "vmware",
+      "name": "aab-test2",
+      "location": "aab-test2/aab-test2.vmx",
+      "host_id": 12,
+      "created_on": "2017-01-25T23:39:51Z",
+      "updated_on": "2017-01-26T18:48:11Z",
+      "storage_id": 13,
+      "guid": "913d2548-e357-11e6-b22f-000a27020067",
+      "ems_id": 3,
+      "uid_ems": "4233467e-9249-f495-f348-3ca09711bac1",
+      "boot_time": "2017-01-04T14:26:18Z",
+      "tools_status": "toolsOk",
+      "standby_action": "checkpoint",
+      "power_state": "on",
+      "state_changed_on": "2017-01-25T23:39:51Z",
+      "connection_state": "connected",
+      "memory_reserve": 0,
+      "memory_reserve_expand": false,
+      "memory_limit": -1,
+      "memory_shares": 40960,
+      "memory_shares_level": "normal",
+      "cpu_reserve": 0,
+      "cpu_reserve_expand": false,
+      "cpu_limit": -1,
+      "cpu_shares": 2000,
+      "cpu_shares_level": "normal",
+      "template": false,
+      "ems_ref_obj": "vm-60",
+      "miq_group_id": 2,
+      "linked_clone": true,
+      "fault_tolerance": false,
+      "type": "ManageIQ::Providers::Vmware::InfraManager::Vm",
+      "ems_ref": "vm-60",
+      "ems_cluster_id": 5,
+      "cloud": false,
+      "raw_power_state": "poweredOn",
+      "tenant_id": 1,
+      "cpu_hot_add_enabled": false,
+      "cpu_hot_remove_enabled": false,
+      "memory_hot_add_enabled": false,
+      "memory_hot_add_limit": 4096,
+      "memory_hot_add_increment": 0,
+      "actions": [
+        {
+          "name": "add_lifecycle_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "add_event",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "refresh",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "shutdown_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "reboot_guest",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "start",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "stop",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "suspend",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "shelve",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "shelve_offload",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "pause",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "request_console",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "reset",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "retire",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "delete",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "set_owner",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "set_ownership",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "scan",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/163"
+        },
+        {
+          "name": "delete",
+          "method": "delete",
+          "href": "http://localhost:3000/api/vms/163"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "query",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "add_lifecycle_event",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "add_event",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "refresh",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "shutdown_guest",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "reboot_guest",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "start",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "stop",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "suspend",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "shelve",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "shelve_offload",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "pause",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "request_console",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "reset",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "retire",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "set_owner",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "set_ownership",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "scan",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "delete",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "assign_tags",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    },
+    {
+      "name": "unassign_tags",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms"
+    }
+  ]
+}
