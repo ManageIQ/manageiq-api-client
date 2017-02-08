@@ -1,8 +1,8 @@
 describe ManageIQ::API::Client::Resource do
-  let(:api_url) { "http://localhost:3000/api" }
-  let(:vms_url) { "#{api_url}/vms" }
-  let(:vms_expand_url) { "#{vms_url}?expand=resources" }
-  let(:entrypoint_request_url) { "#{api_url}?attributes=authorization" }
+  let(:api_url)                 { "http://localhost:3000/api" }
+  let(:vms_url)                 { "#{api_url}/vms" }
+  let(:vms_expand_url)          { "#{vms_url}?expand=resources" }
+  let(:entrypoint_request_url)  { "#{api_url}?attributes=authorization" }
 
   let(:entrypoint_response)     { api_file_fixture("responses/entrypoint.json") }
   let(:get_test1_vms_response)  { api_file_fixture("responses/get_test1_vms.json") }

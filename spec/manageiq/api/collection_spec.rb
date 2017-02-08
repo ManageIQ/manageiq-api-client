@@ -1,17 +1,19 @@
 describe ManageIQ::API::Client::Collection do
   let(:api_url)                     { "http://localhost:3000/api" }
+  let(:entrypoint_request_url)      { "#{api_url}?attributes=authorization" }
   let(:groups_url)                  { "#{api_url}/groups" }
   let(:single_group_query_url)      { "#{api_url}/groups?limit=1" }
-  let(:vms_url) { "#{api_url}/vms" }
-  let(:vms_expand_url) { "#{vms_url}?expand=resources" }
-  let(:entrypoint_request_url)      { "#{api_url}?attributes=authorization" }
-  let(:single_group_query_response) { api_file_fixture("responses/single_group_query.json") }
+
+  let(:vms_url)                     { "#{api_url}/vms" }
+  let(:vms_expand_url)              { "#{vms_url}?expand=resources" }
 
   let(:entrypoint_response)         { api_file_fixture("responses/entrypoint.json") }
   let(:get_vms_response)            { api_file_fixture("responses/get_vms.json") }
   let(:get_no_vms_response)         { api_file_fixture("responses/get_no_vms.json") }
   let(:query_dev_vms_response)      { api_file_fixture("responses/query_dev_vms.json") }
   let(:actions_vms_response)        { api_file_fixture("responses/actions_vms.json") }
+  let(:single_vm_query_response)    { api_file_fixture("responses/single_vm_query.json") }
+  let(:single_group_query_response) { api_file_fixture("responses/single_group_query.json") }
 
   let(:options_groups_response)     { api_file_fixture("responses/options_groups.json") }
   let(:options_vms_response)        { api_file_fixture("responses/options_vms.json") }
@@ -27,8 +29,7 @@ describe ManageIQ::API::Client::Collection do
       expect(miq.collections.collect(&:name)).to match_array(collection_names)
 
       miq.collections.each do |collection|
-        klass = "#{described_class}::#{collection.name.camelize}".constantize
-        expect(collection).to be_a(klass)
+        expect(collection).to be_a(described_class.subclass(collection.name))
       end
     end
   end
@@ -50,11 +51,6 @@ describe ManageIQ::API::Client::Collection do
 
       miq = ManageIQ::API::Client.new
       miq.groups.create(:description => "sample group")
-
-      stub_request(:get, vms_expand_url)
-        .to_return(:status => 200, :body => get_vms_response, :headers => {})
-
-      @vms_hash = JSON.parse(get_vms_response)
     end
 
     it "exposed by new collection" do
