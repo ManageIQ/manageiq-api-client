@@ -1,9 +1,9 @@
 describe ManageIQ::API::Client::Collection do
-  let(:api_url) { "http://localhost:3000/api" }
-  let(:groups_url) { "#{api_url}/groups" }
-  let(:vms_url) { "#{api_url}/vms" }
-  let(:vms_expand_url) { "#{vms_url}?expand=resources" }
-  let(:entrypoint_request_url) { "#{api_url}?attributes=authorization" }
+  let(:api_url)                 { "http://localhost:3000/api" }
+  let(:groups_url)              { "#{api_url}/groups" }
+  let(:vms_url)                 { "#{api_url}/vms" }
+  let(:vms_expand_url)          { "#{vms_url}?expand=resources" }
+  let(:entrypoint_request_url)  { "#{api_url}?attributes=authorization" }
 
   let(:entrypoint_response)     { api_file_fixture("responses/entrypoint.json") }
   let(:get_vms_response)        { api_file_fixture("responses/get_vms.json") }
@@ -25,8 +25,7 @@ describe ManageIQ::API::Client::Collection do
       expect(miq.collections.collect(&:name)).to match_array(collection_names)
 
       miq.collections.each do |collection|
-        klass = "#{described_class}::#{collection.name.camelize}".constantize
-        expect(collection).to be_a(klass)
+        expect(collection).to be_a(described_class.subclass(collection.name))
       end
     end
   end
