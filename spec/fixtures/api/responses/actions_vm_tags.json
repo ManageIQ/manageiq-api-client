@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "success": true,
+      "message": "Assigning Tag: category:'location' name:'ny'",
+      "href": "http://localhost:3000/api/vms/185",
+      "tag_category": "location",
+      "tag_name": "ny",
+      "tag_href": "http://localhost:3000/api/tags/4"
+    },
+    {
+      "success": true,
+      "message": "Assigning Tag: category:'function' name:'desktop'",
+      "href": "http://localhost:3000/api/vms/185",
+      "tag_category": "function",
+      "tag_name": "desktop",
+      "tag_href": "http://localhost:3000/api/tags/9"
+    },
+    {
+      "success": true,
+      "message": "Assigning Tag: category:'owner' name:'prod_linux'",
+      "href": "http://localhost:3000/api/vms/185",
+      "tag_category": "owner",
+      "tag_name": "prod_linux",
+      "tag_href": "http://localhost:3000/api/tags/19"
+    }
+  ]
+}
