@@ -6,7 +6,7 @@ describe ManageIQ::API::Client::Resource do
 
   let(:entrypoint_response)     { api_file_fixture("responses/entrypoint.json") }
   let(:get_test1_vms_response)  { api_file_fixture("responses/get_test1_vms.json") }
-  let(:query_dev_vms_response)  { api_file_fixture("responses/query_dev_vms.json") }
+  let(:actions_vms_response)    { api_file_fixture("responses/actions_vms.json") }
 
   describe "resource" do
     before do
@@ -62,7 +62,7 @@ describe ManageIQ::API::Client::Resource do
 
       stub_request(:post, @vm_hash["href"])
         .with(:body => {"action" => action["name"]}, :headers => {'Content-Type' => 'application/json'})
-        .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+        .to_return(:status => 200, :body => actions_vms_response, :headers => {})
 
       @vm.public_send(action["name"])
     end
@@ -74,7 +74,7 @@ describe ManageIQ::API::Client::Resource do
         .with(:body    => {"action"   => action["name"],
                            "resource" => { "parameter" => "value" }},
               :headers => {'Content-Type' => 'application/json'})
-        .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+        .to_return(:status => 200, :body => actions_vms_response, :headers => {})
 
       @vm.public_send(action["name"], :parameter => "value")
     end

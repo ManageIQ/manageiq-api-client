@@ -9,7 +9,7 @@ describe ManageIQ::API::Client::Subcollection do
   let(:get_test1_vms_response)     { api_file_fixture("responses/get_test1_vms.json") }
   let(:get_test1_tags_response)    { api_file_fixture("responses/get_test1_vm_tags.json") }
   let(:get_test1_no_tags_response) { api_file_fixture("responses/get_test1_vm_no_tags.json") }
-  let(:query_dev_vms_response)     { api_file_fixture("responses/query_dev_vms.json") }
+  let(:actions_vm_tags_response)   { api_file_fixture("responses/actions_vm_tags.json") }
 
   before do
     stub_request(:get, entrypoint_request_url)
@@ -62,7 +62,7 @@ describe ManageIQ::API::Client::Subcollection do
       @tag_actions.each do |action|
         stub_request(:post, "#{vms_url}/#{@vm.id}/tags")
           .with(:body => {"action" => action}, :headers => {'Content-Type' => 'application/json'})
-          .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+          .to_return(:status => 200, :body => actions_vm_tags_response, :headers => {})
 
         @vm.tags.public_send(action.to_sym)
       end
@@ -73,7 +73,7 @@ describe ManageIQ::API::Client::Subcollection do
         stub_request(:post, "#{vms_url}/#{@vm.id}/tags")
           .with(:body    => {"action" => action, "resource" => { "id" => 11 }},
                 :headers => {'Content-Type' => 'application/json'})
-          .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+          .to_return(:status => 200, :body => actions_vm_tags_response, :headers => {})
 
         @vm.tags.public_send(action.to_sym, :id => 11)
       end
@@ -84,7 +84,7 @@ describe ManageIQ::API::Client::Subcollection do
         stub_request(:post, "#{vms_url}/#{@vm.id}/tags")
           .with(:body    => {"action" => action, "resources" => [{ "id" => 11 }, { "id" => 12 }]},
                 :headers => {'Content-Type' => 'application/json'})
-          .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+          .to_return(:status => 200, :body => actions_vm_tags_response, :headers => {})
 
         @vm.tags.public_send(action.to_sym, [{:id => 11}, {:id => 12}])
       end

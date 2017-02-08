@@ -11,6 +11,7 @@ describe ManageIQ::API::Client::Collection do
   let(:get_vms_response)            { api_file_fixture("responses/get_vms.json") }
   let(:get_no_vms_response)         { api_file_fixture("responses/get_no_vms.json") }
   let(:query_dev_vms_response)      { api_file_fixture("responses/query_dev_vms.json") }
+  let(:actions_vms_response)        { api_file_fixture("responses/actions_vms.json") }
 
   let(:options_groups_response)     { api_file_fixture("responses/options_groups.json") }
   let(:options_vms_response)        { api_file_fixture("responses/options_vms.json") }
@@ -72,7 +73,7 @@ describe ManageIQ::API::Client::Collection do
 
       stub_request(:post, vms_url)
         .with(:body => {"action" => action["name"]}, :headers => {'Content-Type' => 'application/json'})
-        .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+        .to_return(:status => 200, :body => actions_vms_response, :headers => {})
 
       miq = ManageIQ::API::Client.new
       miq.vms.public_send(action["name"])
@@ -85,7 +86,7 @@ describe ManageIQ::API::Client::Collection do
       stub_request(:post, vms_url)
         .with(:body    => {"action" => action["name"], "resource" => { "id" => vm_id }},
               :headers => {'Content-Type' => 'application/json'})
-        .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+        .to_return(:status => 200, :body => actions_vms_response, :headers => {})
 
       miq = ManageIQ::API::Client.new
       miq.vms.public_send(action["name"], :id => vm_id)
@@ -99,7 +100,7 @@ describe ManageIQ::API::Client::Collection do
       stub_request(:post, vms_url)
         .with(:body    => {"action" => action["name"], "resources" => vm_resources},
               :headers => {'Content-Type' => 'application/json'})
-        .to_return(:status => 200, :body => query_dev_vms_response, :headers => {})
+        .to_return(:status => 200, :body => actions_vms_response, :headers => {})
 
       miq = ManageIQ::API::Client.new
       miq.vms.public_send(action["name"], vm_resources)
