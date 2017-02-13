@@ -250,4 +250,37 @@ describe ManageIQ::API::Client::Subcollection do
          .collect(&:name)
     end
   end
+
+  describe "search_options" do
+    let(:vm_tags_url) { "#{vms_url}/#{@vm.id}/tags" }
+
+    before do
+      stub_request(:get, "#{vm_tags_url}?hide=resources")
+        .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
+
+      stub_request(:get, "#{vm_tags_url}?expand=resources")
+        .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
+
+      @vm_tags = JSON.parse(get_test1_tags_response)["resources"]
+    end
+
+    it "is supported" do
+      stub_request(:get, "#{vm_tags_url}?expand=resources&attributes=name"\
+                         "&tagging_scope=category1&tagging_format=normal")
+        .to_return(:status => 200, :body => get_test1_no_tags_response, :headers => {})
+
+      @vm.tags.search_options(:tagging_scope => "category1", :tagging_format => "normal").select(:name).collect(&:name)
+    end
+
+    it "is supported with multiple calls" do
+      stub_request(:get, "#{vm_tags_url}?expand=resources&attributes=name"\
+                         "&tagging_scope=category2&tagging_format=expanded")
+        .to_return(:status => 200, :body => get_test1_no_tags_response, :headers => {})
+
+      @vm.tags.search_options(:tagging_scope => "category2")
+         .search_options(:tagging_format => "expanded")
+         .select(:name)
+         .collect(&:name)
+    end
+  end
 end

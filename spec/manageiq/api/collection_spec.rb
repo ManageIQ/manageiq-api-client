@@ -305,4 +305,30 @@ describe ManageIQ::API::Client::Collection do
           .collect(&:name)
     end
   end
+
+  describe "search_options" do
+    before do
+      stub_request(:get, entrypoint_request_url)
+        .to_return(:status => 200, :body => entrypoint_response, :headers => {})
+
+      stub_request(:options, vms_url)
+        .to_return(:status => 200, :body => options_vms_response, :headers => {})
+
+      @miq = ManageIQ::API::Client.new
+    end
+
+    it "is supported" do
+      stub_request(:get, "#{vms_expand_url}&attributes=name&collection_class=Vm&optional_parameter2=Value2")
+        .to_return(:status => 200, :body => get_no_vms_response, :headers => {})
+
+      @miq.vms.search_options(:collection_class => "Vm", :optional_parameter2 => "Value2").select(:name).collect(&:name)
+    end
+
+    it "is supported with multiple calls" do
+      stub_request(:get, "#{vms_expand_url}&attributes=name&collection_class=VmServer&optional_parameter2=Value2")
+        .to_return(:status => 200, :body => get_no_vms_response, :headers => {})
+
+      @miq.vms.search_options(:collection_class => "VmServer").search_options(:optional_parameter2 => "Value2").select(:name).collect(&:name)
+    end
+  end
 end

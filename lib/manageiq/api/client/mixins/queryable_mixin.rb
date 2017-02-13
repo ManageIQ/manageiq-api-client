@@ -1,6 +1,12 @@
 module QueryableMixin
   include QueryRelation::Queryable
 
+  def search_options(hash = nil)
+    @search_options ||= {}
+    @search_options.merge!(hash.deep_symbolize_keys!) if hash.present?
+    self
+  end
+
   # find(#)      returns the object
   # find([#])    returns an array of the object
   # find(#, #, ...) or find([#, #, ...])   returns an array of the objects
@@ -30,7 +36,8 @@ module QueryableMixin
 
   def search(mode, options)
     options[:limit] = 1 if mode == :first
-    result = get(parameters_from_query_relation(options))
+    result = get(parameters_from_query_relation(options).merge(@search_options || {}))
+    @search_options = nil
     case mode
     when :first then result.first
     when :last  then result.last
