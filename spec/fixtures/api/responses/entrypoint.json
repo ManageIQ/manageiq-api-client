@@ -135,7 +135,10 @@
   "server_info": {
     "version": "master",
     "build": "20161128163232_af1ffc1",
-    "appliance": "EVM"
+    "appliance": "EVM",
+    "server_href": "http://localhost:3000/api/servers/1",
+    "zone_href": "http://localhost:3000/api/zones/1",
+    "region_href": "http://localhost:3000/api/regions/1"
   },
   "product_info": {
     "name": "ManageIQ",

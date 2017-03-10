@@ -171,9 +171,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new
 
       expect(miq.server_info).to be_a(ManageIQ::API::Client::ServerInfo)
-      expect(miq.server_info.appliance).to eq(server_info["appliance"])
-      expect(miq.server_info.build).to     eq(server_info["build"])
-      expect(miq.server_info.version).to   eq(server_info["version"])
+      expect(miq.server_info.appliance).to   eq(server_info["appliance"])
+      expect(miq.server_info.build).to       eq(server_info["build"])
+      expect(miq.server_info.version).to     eq(server_info["version"])
+      expect(miq.server_info.server_href).to eq(server_info["server_href"])
+      expect(miq.server_info.zone_href).to   eq(server_info["zone_href"])
+      expect(miq.server_info.region_href).to eq(server_info["region_href"])
     end
 
     it "exposes product_info" do
