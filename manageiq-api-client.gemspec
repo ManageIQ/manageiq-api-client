@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport", ">= 5.0", "< 5.1"
   spec.add_dependency "faraday", "~> 0.9"
   spec.add_dependency "faraday_middleware", "~> 0.10.0"
-  spec.add_dependency "json", "~> 2.0.1"
+  spec.add_dependency "json", "~> 2.1.0"
   spec.add_dependency "more_core_extensions"
   spec.add_dependency "query_relation"
 end
