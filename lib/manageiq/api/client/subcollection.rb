@@ -1,26 +1,25 @@
 module ManageIQ
   module API
     class Client
-      class Collection
+      class Subcollection
         include CollectionActionMixin
         include Enumerable
         include QueryableMixin
 
-        CUSTOM_INSPECT_EXCLUSIONS = [:@client].freeze
+        CUSTOM_INSPECT_EXCLUSIONS = [:@resource].freeze
         include CustomInspectMixin
-
-        attr_reader :client
 
         attr_reader :name
         attr_reader :href
-        attr_reader :description
-        attr_reader :actions
+        attr_reader :resource
 
-        def initialize(client, collection_spec)
-          raise "Cannot instantiate a Collection directly" if instance_of?(Collection)
-          @client = client
-          @name, @href, @description = collection_spec.values_at("name", "href", "description")
+        delegate :client, :to => :resource
+
+        def initialize(name, resource)
+          @name, @resource, @href = name.to_s, resource, "#{resource.href}/#{name}"
           clear_actions
+          result_hash = client.get(href, :hide => "resources")
+          fetch_actions(result_hash)
         end
 
         def each(&block)
@@ -40,22 +39,17 @@ module ManageIQ
         def get(options = {})
           options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
           options[:filter] = Array(options[:filter]) if options[:filter].is_a?(String)
-          result_hash = client.get(name, options)
+          result_hash = client.get(href, options)
           fetch_actions(result_hash)
-          klass = ManageIQ::API::Client::Resource.subclass(name)
+          klass = ManageIQ::API::Client::Subresource.subclass(name)
           result_hash["resources"].collect do |resource_hash|
             klass.new(self, resource_hash)
           end
         end
 
-        def options
-          @collection_options ||= CollectionOptions.new(client.options(name))
-        end
-
         private
 
         def method_missing(sym, *args, &block)
-          get unless actions_present?
           if action_defined?(sym)
             exec_action(sym, *args, &block)
           else
@@ -64,7 +58,6 @@ module ManageIQ
         end
 
         def respond_to_missing?(sym, *_)
-          get unless actions_present?
           action_defined?(sym) || super
         end
       end
