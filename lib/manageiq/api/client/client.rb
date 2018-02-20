@@ -58,7 +58,7 @@ module ManageIQ
       end
 
       def reconnect
-        @connection = ManageIQ::API::Client::Connection.new(self, client_options.slice(:ssl))
+        @connection = ManageIQ::API::Client::Connection.new(self, client_options.slice(:ssl, :open_timeout, :timeout))
         load_definitions
       end
 
