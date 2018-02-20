@@ -95,7 +95,7 @@ module ManageIQ
         private
 
         def method_missing(sym, *args, &block)
-          get unless actions_present?
+          query_actions unless actions_present?
           if action_defined?(sym)
             exec_action(sym, *args, &block)
           else
@@ -104,7 +104,7 @@ module ManageIQ
         end
 
         def respond_to_missing?(sym, *_)
-          get unless actions_present?
+          query_actions unless actions_present?
           action_defined?(sym) || super
         end
 
@@ -193,6 +193,11 @@ module ManageIQ
             body[args.kind_of?(Array) ? "resources" : "resource"] = args
           end
           body
+        end
+
+        def query_actions
+          result_hash = client.get(name, :limit => 1)
+          fetch_actions(result_hash)
         end
       end
     end

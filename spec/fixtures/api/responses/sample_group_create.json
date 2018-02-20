@@ -1,0 +1,15 @@
+{
+  "results": [
+    {
+      "href": "http://localhost:3000/api/groups/23",
+      "id": "23",
+      "description": "sample group",
+      "group_type": "user",
+      "sequence": 22,
+      "created_on": "2018-02-20T14:39:58Z",
+      "updated_on": "2018-02-20T14:39:58Z",
+      "settings": null,
+      "tenant_id": "1"
+    }
+  ]
+}

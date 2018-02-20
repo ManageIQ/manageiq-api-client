@@ -1,0 +1,40 @@
+{
+  "name": "groups",
+  "count": 22,
+  "subcount": 1,
+  "pages": 22,
+  "resources": [
+    {
+      "href": "http://localhost:3000/api/groups/2"
+    }
+  ],
+  "actions": [
+    {
+      "name": "query",
+      "method": "post",
+      "href": "http://localhost:3000/api/groups"
+    },
+    {
+      "name": "create",
+      "method": "post",
+      "href": "http://localhost:3000/api/groups"
+    },
+    {
+      "name": "edit",
+      "method": "post",
+      "href": "http://localhost:3000/api/groups"
+    },
+    {
+      "name": "delete",
+      "method": "post",
+      "href": "http://localhost:3000/api/groups"
+    }
+  ],
+  "links": {
+    "self": "http://localhost:3000/api/groups?limit=1&offset=0",
+    "next": "http://localhost:3000/api/groups?limit=1&offset=1",
+    "first": "http://localhost:3000/api/groups?limit=1&offset=0",
+    "last": "http://localhost:3000/api/groups?limit=1&offset=22"
+  }
+}
+
