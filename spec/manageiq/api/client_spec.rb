@@ -108,6 +108,16 @@ describe ManageIQ::API::Client do
       expect(miq.authentication.token).to    be_nil
       expect(miq.authentication.miqtoken).to be_nil
     end
+
+    it "support open_timeout and timeout" do
+      stub_request(:get, entrypoint_request_url)
+        .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
+
+      miq = described_class.new(:open_timeout => 11, :timeout => 22)
+
+      expect(miq.connection.handle.options.open_timeout).to eq(11)
+      expect(miq.connection.handle.options.timeout).to eq(22)
+    end
   end
 
   describe ".load_definitions" do

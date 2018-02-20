@@ -67,12 +67,12 @@ module ManageIQ
           end
         end
 
-        private
-
         def handle
           ssl_options = @connection_options[:ssl]
           Faraday.new(:url => url, :ssl => ssl_options) do |faraday|
             faraday.request(:url_encoded) # form-encode POST params
+            faraday.options.open_timeout = @connection_options[:open_timeout] if @connection_options[:open_timeout]
+            faraday.options.timeout      = @connection_options[:timeout]      if @connection_options[:timeout]
             faraday.response(:logger, client.logger)
             faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
             faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
@@ -81,6 +81,8 @@ module ManageIQ
             end
           end
         end
+
+        private
 
         def send_request(method, path, params, &block)
           begin
