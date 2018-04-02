@@ -2,14 +2,12 @@ module ManageIQ
   module API
     class Client
       class Collection
-        include ActionMixin
+        include ManageIQ::API::CollectionActionMixin
         include Enumerable
-        include QueryRelation::Queryable
+        include ManageIQ::API::QueryableMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@client].freeze
-        include CustomInspectMixin
-
-        ACTIONS_RETURNING_RESOURCES = %w(create query).freeze
+        include ManageIQ::API::CustomInspectMixin
 
         attr_reader :client
 
@@ -25,47 +23,6 @@ module ManageIQ
           clear_actions
         end
 
-        def each(&block)
-          all.each(&block)
-        end
-
-        # find(#)      returns the object
-        # find([#])    returns an array of the object
-        # find(#, #, ...) or find([#, #, ...])   returns an array of the objects
-        def find(*args)
-          request_array = args.size == 1 && args[0].kind_of?(Array)
-          args = args.flatten
-          case args.size
-          when 0
-            raise "Couldn't find resource without an 'id'"
-          when 1
-            res = limit(1).where(:id => args[0]).to_a
-            raise "Couldn't find resource with 'id' #{args}" if res.blank?
-            request_array ? res : res.first
-          else
-            raise "Multiple resource find is not supported" unless respond_to?(:query)
-            query(args.collect { |id| { "id" => id } })
-          end
-        end
-
-        def find_by(args)
-          limit(1).where(args).first
-        end
-
-        def pluck(*attrs)
-          select(*attrs).to_a.pluck(*attrs)
-        end
-
-        def self.subclass(name)
-          name = name.camelize
-
-          if const_defined?(name, false)
-            const_get(name, false)
-          else
-            const_set(name, Class.new(self))
-          end
-        end
-
         def get(options = {})
           options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
           options[:filter] = Array(options[:filter]) if options[:filter].is_a?(String)
@@ -74,17 +31,6 @@ module ManageIQ
           klass = ManageIQ::API::Client::Resource.subclass(name)
           result_hash["resources"].collect do |resource_hash|
             klass.new(self, resource_hash)
-          end
-        end
-
-        def search(mode, options)
-          options[:limit] = 1 if mode == :first
-          result = get(parameters_from_query_relation(options))
-          case mode
-          when :first then result.first
-          when :last  then result.last
-          when :all   then result
-          else raise "Invalid mode #{mode} specified for search"
           end
         end
 

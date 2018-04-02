@@ -1,0 +1,20 @@
+{
+  "name": "tags",
+  "count": 160,
+  "subcount": 0,
+  "resources": [
+  ],
+  "actions": [
+    {
+      "name": "assign",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms/185/tags"
+    },
+    {
+      "name": "unassign",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms/185/tags"
+    }
+  ]
+}
+

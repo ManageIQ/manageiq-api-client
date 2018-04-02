@@ -1,0 +1,54 @@
+{
+  "name": "tags",
+  "count": 160,
+  "subcount": 2,
+  "resources": [
+    {
+      "href": "http://localhost:3000/api/vms/185/tags/131",
+      "id": 131,
+      "name": "/managed/folder_path_yellow/datacenters",
+      "actions": [
+        {
+          "name": "assign",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185/tags/131"
+        },
+        {
+          "name": "unassign",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185/tags/131"
+        }
+      ]
+    },
+    {
+      "href": "http://localhost:3000/api/vms/185/tags/138",
+      "id": 138,
+      "name": "/managed/folder_path_blue/datacenters:dev-vc60-dc:vm:alberto-dev",
+      "actions": [
+        {
+          "name": "assign",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185/tags/138"
+        },
+        {
+          "name": "unassign",
+          "method": "post",
+          "href": "http://localhost:3000/api/vms/185/tags/138"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "assign",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms/185/tags"
+    },
+    {
+      "name": "unassign",
+      "method": "post",
+      "href": "http://localhost:3000/api/vms/185/tags"
+    }
+  ]
+}
+

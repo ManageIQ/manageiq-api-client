@@ -1,4 +1,4 @@
-module CustomInspectMixin
+module ManageIQ::API::CustomInspectMixin
   extend ActiveSupport::Concern
 
   def inspect
