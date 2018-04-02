@@ -3,6 +3,26 @@ module ManageIQ::API::CollectionActionMixin
 
   ACTIONS_RETURNING_RESOURCES = %w(create query).freeze
 
+  def each(&block)
+    all.each(&block)
+  end
+
+  def self.included(base)
+    base.extend ClassMethods
+  end
+
+  module ClassMethods
+    def subclass(name)
+      name = name.camelize
+
+      if const_defined?(name, false)
+        const_get(name, false)
+      else
+        const_set(name, Class.new(self))
+      end
+    end
+  end
+
   private
 
   def exec_action(name, *args, &block)

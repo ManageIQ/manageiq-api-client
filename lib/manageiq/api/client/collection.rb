@@ -23,20 +23,6 @@ module ManageIQ
           clear_actions
         end
 
-        def each(&block)
-          all.each(&block)
-        end
-
-        def self.subclass(name)
-          name = name.camelize
-
-          if const_defined?(name, false)
-            const_get(name, false)
-          else
-            const_set(name, Class.new(self))
-          end
-        end
-
         def get(options = {})
           options[:expand] = (String(options[:expand]).split(",") | %w(resources)).join(",")
           options[:filter] = Array(options[:filter]) if options[:filter].is_a?(String)
