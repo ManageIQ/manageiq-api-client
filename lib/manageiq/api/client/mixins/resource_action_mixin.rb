@@ -1,5 +1,6 @@
-module ResourceActionMixin
-  include ActionMixin
+module ManageIQ::API::ResourceActionMixin
+  include ManageIQ::API::ActionMixin
+
   private
 
   def exec_action(name, args = nil, &block)

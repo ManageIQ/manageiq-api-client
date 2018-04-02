@@ -1,4 +1,4 @@
-module ActionMixin
+module ManageIQ::API::ActionMixin
   extend ActiveSupport::Concern
 
   private

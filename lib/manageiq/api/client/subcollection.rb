@@ -2,12 +2,12 @@ module ManageIQ
   module API
     class Client
       class Subcollection
-        include CollectionActionMixin
+        include ManageIQ::API::CollectionActionMixin
         include Enumerable
-        include QueryableMixin
+        include ManageIQ::API::QueryableMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@resource].freeze
-        include CustomInspectMixin
+        include ManageIQ::API::CustomInspectMixin
 
         attr_reader :name
         attr_reader :href

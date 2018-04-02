@@ -2,10 +2,10 @@ module ManageIQ
   module API
     class Client
       class Subresource
-        include ResourceActionMixin
+        include ManageIQ::API::ResourceActionMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@resource].freeze
-        include CustomInspectMixin
+        include ManageIQ::API::CustomInspectMixin
 
         def self.subclass(name)
           name = name.classify

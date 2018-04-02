@@ -1,7 +1,9 @@
-module CollectionActionMixin
-  include ActionMixin
+module ManageIQ::API::CollectionActionMixin
+  include ManageIQ::API::ActionMixin
 
   ACTIONS_RETURNING_RESOURCES = %w(create query).freeze
+
+  private
 
   def exec_action(name, *args, &block)
     action = find_action(name)
