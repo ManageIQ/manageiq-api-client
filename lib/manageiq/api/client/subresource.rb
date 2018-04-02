@@ -40,10 +40,9 @@ module ManageIQ
         private
 
         def method_missing(sym, *args, &block)
+          return attributes[sym.to_s] if attributes.key?(sym.to_s)
           reload_actions unless actions_present?
-          if attributes.key?(sym.to_s)
-            attributes[sym.to_s]
-          elsif action_defined?(sym)
+          if action_defined?(sym)
             exec_action(sym, *args, &block)
           else
             super
