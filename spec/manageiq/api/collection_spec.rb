@@ -6,6 +6,7 @@ describe ManageIQ::API::Client::Collection do
 
   let(:vms_url)                     { "#{api_url}/vms" }
   let(:vms_expand_url)              { "#{vms_url}?expand=resources" }
+  let(:single_vm_query_url)         { "#{api_url}/vms?limit=1" }
 
   let(:entrypoint_response)         { api_file_fixture("responses/entrypoint.json") }
   let(:get_vms_response)            { api_file_fixture("responses/get_vms.json") }
@@ -38,6 +39,11 @@ describe ManageIQ::API::Client::Collection do
     before do
       stub_request(:get, entrypoint_request_url)
         .to_return(:status => 200, :body => entrypoint_response, :headers => {})
+
+      stub_request(:get, single_vm_query_url)
+        .to_return(:status => 200, :body => single_vm_query_response, :headers => {})
+
+      @vms_hash = JSON.parse(get_vms_response)
     end
 
     it "fetch a single resource for getting collection actions" do
@@ -248,8 +254,8 @@ describe ManageIQ::API::Client::Collection do
       dev_ids = dev_vms.collect { |vm| vm["id"] }
       dev_names = dev_vms.collect { |vm| vm["name"] }
 
-      stub_request(:get, vms_expand_url)
-        .to_return(:status => 200, :body => get_vms_response, :headers => {})
+      stub_request(:get, single_vm_query_url)
+        .to_return(:status => 200, :body => single_vm_query_response, :headers => {})
 
       stub_request(:post, vms_url)
         .with(:body    => {"action" => "query", "resources" => dev_ids.collect { |id| { "id" => id } }},
