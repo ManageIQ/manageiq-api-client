@@ -14,7 +14,7 @@ module ManageIQ
         }.freeze
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@password].freeze
-        include CustomInspectMixin
+        include ManageIQ::API::Client::CustomInspectMixin
 
         def initialize(options = {})
           @user, @password = fetch_credentials(options)

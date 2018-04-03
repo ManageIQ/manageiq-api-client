@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "success": true,
+      "message": "setting ownership of vms id 161 to owner: Administrator",
+      "href": "http://localhost:3000/api/vms/161"
+    },
+    {
+      "success": true,
+      "message": "setting ownership of vms id 165 to owner: Administrator",
+      "href": "http://localhost:3000/api/vms/165"
+    },
+    {
+      "success": true,
+      "message": "setting ownership of vms id 166 to owner: Administrator",
+      "href": "http://localhost:3000/api/vms/166"
+    },
+    {
+      "success": true,
+      "message": "setting ownership of vms id 185 to owner: Administrator",
+      "href": "http://localhost:3000/api/vms/185"
+    },
+    {
+      "success": true,
+      "message": "setting ownership of vms id 163 to owner: Administrator",
+      "href": "http://localhost:3000/api/vms/163"
+    }
+  ]
+}

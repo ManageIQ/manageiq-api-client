@@ -46,6 +46,9 @@
     "users",
     "vms"
   ],
+  "subcollections": [
+    "tags"
+  ],
   "data": {
     "required_fields": [
       "id",
