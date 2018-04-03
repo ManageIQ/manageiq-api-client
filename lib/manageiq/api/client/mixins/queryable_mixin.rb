@@ -73,7 +73,7 @@ module ManageIQ::API::Client::QueryableMixin
       if option.kind_of?(Array)
         option.each_with_object({}) { |name, hash| hash[name] = "asc" }
       else
-        option.dup
+        option
       end
 
     res_sort_by = []
