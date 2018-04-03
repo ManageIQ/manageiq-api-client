@@ -1,4 +1,4 @@
-module ManageIQ::API::QueryableMixin
+module ManageIQ::API::Client::QueryableMixin
   include QueryRelation::Queryable
 
   # find(#)      returns the object

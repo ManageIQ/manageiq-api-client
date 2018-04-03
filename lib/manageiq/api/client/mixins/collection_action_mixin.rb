@@ -1,5 +1,5 @@
-module ManageIQ::API::CollectionActionMixin
-  include ManageIQ::API::ActionMixin
+module ManageIQ::API::Client::CollectionActionMixin
+  include ManageIQ::API::Client::ActionMixin
 
   ACTIONS_RETURNING_RESOURCES = %w(create query).freeze
 

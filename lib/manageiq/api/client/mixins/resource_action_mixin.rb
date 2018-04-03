@@ -1,5 +1,5 @@
-module ManageIQ::API::ResourceActionMixin
-  include ManageIQ::API::ActionMixin
+module ManageIQ::API::Client::ResourceActionMixin
+  include ManageIQ::API::Client::ActionMixin
 
   private
 
