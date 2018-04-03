@@ -54,58 +54,6 @@ module ManageIQ
           action_defined?(sym) || super
         end
 
-        def parameters_from_query_relation(options)
-          api_params = {}
-          [:offset, :limit].each { |opt| api_params[opt] = options[opt] if options[opt] }
-          api_params[:attributes] = options[:select].join(",") if options[:select].present?
-          if options[:where]
-            api_params[:filter] ||= []
-            api_params[:filter] += filters_from_query_relation("=", options[:where])
-          end
-          if options[:not]
-            api_params[:filter] ||= []
-            api_params[:filter] += filters_from_query_relation("!=", options[:not])
-          end
-          if options[:order]
-            order_parameters_from_query_relation(options[:order]).each { |param, value| api_params[param] = value }
-          end
-          api_params
-        end
-
-        def filters_from_query_relation(condition, option)
-          filters = []
-          option.each do |attr, values|
-            Array(values).each do |value|
-              value = "'#{value}'" if value.kind_of?(String) && !value.match(/^(NULL|nil)$/i)
-              filters << "#{attr}#{condition}#{value}"
-            end
-          end
-          filters
-        end
-
-        def order_parameters_from_query_relation(option)
-          query_relation_option =
-            if option.kind_of?(Array)
-              option.each_with_object({}) { |name, hash| hash[name] = "asc" }
-            else
-              option.dup
-            end
-
-          res_sort_by = []
-          res_sort_order = []
-          query_relation_option.each do |sort_attr, sort_order|
-            res_sort_by << sort_attr
-            sort_order =
-              case sort_order
-              when /^asc/i  then "asc"
-              when /^desc/i then "desc"
-              else raise "Invalid sort order #{sort_order} specified for attribute #{sort_attr}"
-              end
-            res_sort_order << sort_order
-          end
-          { :sort_by => res_sort_by.join(","), :sort_order => res_sort_order.join(",") }
-        end
-
         def exec_action(name, *args, &block)
           action = find_action(name)
           body = action_body(action.name, *args, &block)
