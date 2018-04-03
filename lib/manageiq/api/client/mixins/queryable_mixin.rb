@@ -60,14 +60,12 @@ module ManageIQ::API::Client::QueryableMixin
   end
 
   def filters_from_query_relation(condition, option)
-    filters = []
-    option.each do |attr, values|
-      Array(values).each do |value|
+    option.collect do |attr, values|
+      Array(values).collect do |value|
         value = "'#{value}'" if value.kind_of?(String) && !value.match(/^(NULL|nil)$/i)
-        filters << "#{attr}#{condition}#{value}"
+        "#{attr}#{condition}#{value}"
       end
-    end
-    filters
+    end.flatten
   end
 
   def order_parameters_from_query_relation(option)
