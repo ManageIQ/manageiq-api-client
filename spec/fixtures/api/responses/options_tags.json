@@ -1,0 +1,23 @@
+{
+  "attributes": [
+    "id",
+    "name"
+  ],
+  "virtual_attributes": [
+    "href_slug",
+    "region_description",
+    "region_number"
+  ],
+  "relationships": [
+    "categorization",
+    "category",
+    "classification",
+    "container_label_tag_mappings",
+    "taggings"
+  ],
+  "subcollections": [
+
+  ],
+  "data": {
+  }
+}

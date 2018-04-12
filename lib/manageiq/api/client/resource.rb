@@ -2,7 +2,7 @@ module ManageIQ
   module API
     class Client
       class Resource
-        include ManageIQ::API::Client::ResourceActionMixin
+        include ManageIQ::API::Client::ActionMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
         include ManageIQ::API::Client::CustomInspectMixin
@@ -69,6 +69,27 @@ module ManageIQ
         def invoke_subcollection(name)
           @_subcollections ||= {}
           @_subcollections[name.to_s] ||= ManageIQ::API::Client::Subcollection.subclass(name.to_s).new(name.to_s, self)
+        end
+
+        def exec_action(name, args = nil, &block)
+          args ||= {}
+          raise "Action #{name} parameters must be a hash" unless args.kind_of?(Hash)
+          action = find_action(name)
+          res = client.send(action.method, URI(action.href)) do
+            body = { "action" => action.name }
+            resource = args.dup
+            resource.merge!(yield) if block
+            resource.present? ? body.merge("resource" => resource) : body
+          end
+          action_result(res)
+        end
+
+        def reload_actions
+          return unless attributes.key?("href")
+          resource_href = client.connection.api_path(attributes["href"].split('/').last(2).join('/'))
+          resource_hash = client.get(resource_href)
+          @attributes = resource_hash.except("actions")
+          fetch_actions(resource_hash)
         end
       end
     end

@@ -10,7 +10,6 @@ require "query_relation"
 require "manageiq/api/client/client"
 require "manageiq/api/client/mixins/action_mixin"
 require "manageiq/api/client/mixins/custom_inspect_mixin"
-require "manageiq/api/client/mixins/resource_action_mixin"
 require "manageiq/api/client/mixins/collection_action_mixin"
 require "manageiq/api/client/mixins/queryable_mixin"
 
