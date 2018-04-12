@@ -18,7 +18,8 @@ module ManageIQ::API::Client::ResourceActionMixin
 
   def reload_actions
     return unless attributes.key?("href")
-    resource_hash = client.get(attributes["href"])
+    resource_href = client.connection.api_path(attributes["href"].split('/').last(2).join('/'))
+    resource_hash = client.get(resource_href)
     @attributes = resource_hash.except("actions")
     fetch_actions(resource_hash)
   end

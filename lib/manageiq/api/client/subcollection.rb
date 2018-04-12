@@ -27,10 +27,14 @@ module ManageIQ
           options[:filter] = Array(options[:filter]) if options[:filter].is_a?(String)
           result_hash = client.get(href, options)
           fetch_actions(result_hash)
-          klass = ManageIQ::API::Client::Subresource.subclass(name)
+          klass = ManageIQ::API::Client::Resource.subclass(name)
           result_hash["resources"].collect do |resource_hash|
             klass.new(self, resource_hash)
           end
+        end
+
+        def options
+          @collection_options ||= CollectionOptions.new(client.options(name))
         end
 
         private

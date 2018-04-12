@@ -45,13 +45,19 @@ module ManageIQ
             attributes[sym.to_s]
           elsif action_defined?(sym)
             exec_action(sym, *args, &block)
+          elsif subcollection_defined?(sym)
+            invoke_subcollection(sym)
           else
             super
           end
         end
 
+        def subcollection_defined?(name)
+          collection.options.subcollections.include?(name.to_s)
+        end
+
         def respond_to_missing?(sym, *_)
-          attributes.key?(sym.to_s) || action_defined?(sym) || super
+          attributes.key?(sym.to_s) || action_defined?(sym) || subcollection_defined?(sym) || super
         end
 
         # Let's add href's here if not yet defined by the server
@@ -59,6 +65,11 @@ module ManageIQ
           return if attributes.key?("href")
           return unless attributes.key?("id")
           attributes["href"] = "#{resource.href}/#{self.class.name}/#{attributes['id']}"
+        end
+
+        def invoke_subcollection(name)
+          @_subcollections ||= {}
+          @_subcollections[name.to_s] ||= ManageIQ::API::Client::Subcollection.subclass(name.to_s).new(name.to_s, self)
         end
       end
     end
