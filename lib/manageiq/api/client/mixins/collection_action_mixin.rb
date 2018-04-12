@@ -12,6 +12,10 @@ module ManageIQ::API::Client::CollectionActionMixin
   end
 
   module ClassMethods
+    def defined?(name)
+      const_defined?(name.camelize, false)
+    end
+
     def subclass(name)
       name = name.camelize
 

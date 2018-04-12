@@ -63,7 +63,7 @@ module ManageIQ
         end
 
         def subcollection_defined?(name)
-          collection.options.subcollections.include?(name.to_s)
+          collection.options.subcollections.include?(name.to_s) if ManageIQ::API::Client::Collection.defined?(collection.name)
         end
 
         def invoke_subcollection(name)
