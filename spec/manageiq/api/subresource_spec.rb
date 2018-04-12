@@ -1,11 +1,13 @@
-describe ManageIQ::API::Client::Subresource do
+describe ManageIQ::API::Client::Resource do
   let(:api_url)                 { "http://localhost:3000/api" }
   let(:vms_url)                 { "#{api_url}/vms" }
+  let(:tags_url)                { "#{api_url}/tags" }
   let(:vms_expand_url)          { "#{vms_url}?expand=resources" }
   let(:entrypoint_request_url)  { "#{api_url}?attributes=authorization" }
 
   let(:entrypoint_response)     { api_file_fixture("responses/entrypoint.json") }
   let(:options_vms_response)    { api_file_fixture("responses/options_vms.json") }
+  let(:options_tags_response)   { api_file_fixture("responses/options_tags.json") }
   let(:get_test1_vms_response)  { api_file_fixture("responses/get_test1_vms.json") }
   let(:get_test1_tags_response) { api_file_fixture("responses/get_test1_vm_tags.json") }
   let(:actions_tags_response)   { api_file_fixture("responses/actions_vm_tags.json") }
@@ -19,6 +21,9 @@ describe ManageIQ::API::Client::Subresource do
 
     stub_request(:options, vms_url)
       .to_return(:status => 200, :body => options_vms_response, :headers => {})
+
+    stub_request(:options, tags_url)
+      .to_return(:status => 200, :body => options_tags_response, :headers => {})
 
     miq = ManageIQ::API::Client.new
     @vm = miq.vms.where(:name => "aab-test1").first
@@ -37,7 +42,7 @@ describe ManageIQ::API::Client::Subresource do
 
   describe "subresource" do
     it "is of valid type" do
-      expect(@vm_tag).to be_a(ManageIQ::API::Client::Subresource::Tag)
+      expect(@vm_tag).to be_a(ManageIQ::API::Client::Resource::Tag)
     end
 
     it "exposes attributes hash" do
@@ -49,7 +54,7 @@ describe ManageIQ::API::Client::Subresource do
     end
 
     it "exposes related subcollection" do
-      expect(@vm_tag.subcollection).to be_a(ManageIQ::API::Client::Subcollection::Tags)
+      expect(@vm_tag.collection).to be_a(ManageIQ::API::Client::Subcollection::Tags)
     end
 
     it "exposes attributes" do

@@ -102,7 +102,7 @@ describe ManageIQ::API::Client::Subcollection do
 
     it "returns array of subresources" do
       @vm.tags.collect do |resource|
-        expect(resource).to be_a(ManageIQ::API::Client::Subresource::Tag)
+        expect(resource).to be_a(ManageIQ::API::Client::Resource::Tag)
       end
     end
 
