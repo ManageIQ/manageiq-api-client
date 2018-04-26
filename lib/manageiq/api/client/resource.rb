@@ -2,10 +2,10 @@ module ManageIQ
   module API
     class Client
       class Resource
-        include ActionMixin
+        include ManageIQ::API::Client::ActionMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
-        include CustomInspectMixin
+        include ManageIQ::API::Client::CustomInspectMixin
 
         def self.subclass(name)
           name = name.classify
@@ -44,26 +44,15 @@ module ManageIQ
             attributes[sym.to_s]
           elsif action_defined?(sym)
             exec_action(sym, *args, &block)
+          elsif subcollection_defined?(sym)
+            invoke_subcollection(sym)
           else
             super
           end
         end
 
         def respond_to_missing?(sym, *_)
-          attributes.key?(sym.to_s) || action_defined?(sym) || super
-        end
-
-        def exec_action(name, args = nil, &block)
-          args ||= {}
-          raise "Action #{name} parameters must be a hash" if !args.kind_of?(Hash)
-          action = find_action(name)
-          res = client.send(action.method, URI(action.href)) do
-            body = { "action" => action.name }
-            resource = args.dup
-            resource.merge!(block.call) if block
-            resource.present? ? body.merge("resource" => resource) : body
-          end
-          action_result(res)
+          attributes.key?(sym.to_s) || action_defined?(sym) || subcollection_defined?(sym) || super
         end
 
         # Let's add href's here if not yet defined by the server
@@ -73,9 +62,32 @@ module ManageIQ
           attributes["href"] = client.connection.api_path("#{collection.name}/#{attributes['id']}")
         end
 
+        def subcollection_defined?(name)
+          collection.options.subcollections.include?(name.to_s) if ManageIQ::API::Client::Collection.defined?(collection.name)
+        end
+
+        def invoke_subcollection(name)
+          @_subcollections ||= {}
+          @_subcollections[name.to_s] ||= ManageIQ::API::Client::Subcollection.subclass(name.to_s).new(name.to_s, self)
+        end
+
+        def exec_action(name, args = nil, &block)
+          args ||= {}
+          raise "Action #{name} parameters must be a hash" unless args.kind_of?(Hash)
+          action = find_action(name)
+          res = client.send(action.method, URI(action.href)) do
+            body = { "action" => action.name }
+            resource = args.dup
+            resource.merge!(yield) if block
+            resource.present? ? body.merge("resource" => resource) : body
+          end
+          action_result(res)
+        end
+
         def reload_actions
           return unless attributes.key?("href")
-          resource_hash = client.get(attributes["href"])
+          resource_href = client.connection.api_path(attributes["href"].split('/').last(2).join('/'))
+          resource_hash = client.get(resource_href)
           @attributes = resource_hash.except("actions")
           fetch_actions(resource_hash)
         end
