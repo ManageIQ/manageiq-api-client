@@ -35,7 +35,7 @@ describe ManageIQ::API::Client::Subcollection do
     end
 
     it "creates subcollections of correct type" do
-      stub_request(:get, "#{vms_url}/#{@vm.id}/tags?hide=resources")
+      stub_request(:get, "#{vms_url}/#{@vm.id}/tags?limit=1")
         .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
 
       expect(@vm.tags).to be_a(described_class.subclass("tags"))
@@ -44,7 +44,7 @@ describe ManageIQ::API::Client::Subcollection do
 
   describe "subcollection actions" do
     before do
-      stub_request(:get, "#{vms_url}/#{@vm.id}/tags?hide=resources")
+      stub_request(:get, "#{vms_url}/#{@vm.id}/tags?limit=1")
         .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
 
       @tag_actions = JSON.parse(get_test1_tags_response)["actions"]
@@ -93,7 +93,7 @@ describe ManageIQ::API::Client::Subcollection do
 
   describe "get" do
     before do
-      stub_request(:get, "#{vms_url}/#{@vm.id}/tags?hide=resources")
+      stub_request(:get, "#{vms_url}/#{@vm.id}/tags?limit=1")
         .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
 
       stub_request(:get, "#{vms_url}/#{@vm.id}/tags?expand=resources")
@@ -116,7 +116,7 @@ describe ManageIQ::API::Client::Subcollection do
     let(:vm_tags_url) { "#{vms_url}/#{@vm.id}/tags" }
 
     before do
-      stub_request(:get, "#{vm_tags_url}?hide=resources")
+      stub_request(:get, "#{vm_tags_url}?limit=1")
         .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
 
       stub_request(:get, "#{vm_tags_url}?expand=resources")

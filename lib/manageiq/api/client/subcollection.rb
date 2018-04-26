@@ -1,13 +1,9 @@
 module ManageIQ
   module API
     class Client
-      class Subcollection
-        include ManageIQ::API::Client::CollectionActionMixin
-        include Enumerable
-        include ManageIQ::API::Client::QueryableMixin
+      class Subcollection < Collection
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@resource].freeze
-        include ManageIQ::API::Client::CustomInspectMixin
 
         attr_reader :name
         attr_reader :href
@@ -18,8 +14,7 @@ module ManageIQ
         def initialize(name, resource)
           @name, @resource, @href = name.to_s, resource, "#{resource.href}/#{name}"
           clear_actions
-          result_hash = client.get(href, :hide => "resources")
-          fetch_actions(result_hash)
+          query_actions(href)
         end
 
         def get(options = {})
@@ -31,10 +26,6 @@ module ManageIQ
           result_hash["resources"].collect do |resource_hash|
             klass.new(self, resource_hash)
           end
-        end
-
-        def options
-          @collection_options ||= CollectionOptions.new(client.options(name))
         end
 
         private

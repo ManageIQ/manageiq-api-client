@@ -30,7 +30,7 @@ describe ManageIQ::API::Client::Resource do
     @vm_options = JSON.parse(options_vms_response)
     @vm_hash = JSON.parse(get_test1_vms_response)["resources"].first
 
-    stub_request(:get, "#{vms_url}/#{@vm.id}/tags?hide=resources")
+    stub_request(:get, "#{vms_url}/#{@vm.id}/tags?limit=1")
       .to_return(:status => 200, :body => get_test1_tags_response, :headers => {})
 
     stub_request(:get, "#{vms_url}/#{@vm.id}/tags?expand=resources&limit=1")

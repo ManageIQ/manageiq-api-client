@@ -2,9 +2,11 @@ module ManageIQ
   module API
     class Client
       class Collection
-        include ManageIQ::API::Client::CollectionActionMixin
+        include ManageIQ::API::Client::ActionMixin
         include Enumerable
         include ManageIQ::API::Client::QueryableMixin
+
+        ACTIONS_RETURNING_RESOURCES = %w(create query).freeze
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@client].freeze
         include ManageIQ::API::Client::CustomInspectMixin
@@ -38,6 +40,24 @@ module ManageIQ
           @collection_options ||= CollectionOptions.new(client.options(name))
         end
 
+        def each(&block)
+          all.each(&block)
+        end
+
+        def self.defined?(name)
+          const_defined?(name.camelize, false)
+        end
+
+        def self.subclass(name)
+          name = name.camelize
+
+          if const_defined?(name, false)
+            const_get(name, false)
+          else
+            const_set(name, Class.new(self))
+          end
+        end
+
         private
 
         def method_missing(sym, *args, &block)
@@ -61,12 +81,22 @@ module ManageIQ
           res = client.send(action.method, URI(action.href)) { body }
           if ACTIONS_RETURNING_RESOURCES.include?(action.name) && res.key?("results")
             klass = ManageIQ::API::Client::Resource.subclass(self.name)
-            res = res["results"].collect { |resource_hash| klass.new(self, resource_hash) }
+            res = results_to_objects(res["results"], klass)
             res = res[0] if !bulk_request && res.size == 1
           else
             res = res["results"].collect { |result| action_result(result) }
           end
           res
+        end
+
+        def results_to_objects(results, klass)
+          results.collect do |resource_hash|
+            if ManageIQ::API::Client::ActionResult.an_action_result?(resource_hash)
+              ManageIQ::API::Client::ActionResult.new(resource_hash)
+            else
+              klass.new(self, resource_hash)
+            end
+          end
         end
 
         def action_body(action_name, *args, &block)
@@ -89,8 +119,8 @@ module ManageIQ
           body
         end
 
-        def query_actions
-          result_hash = client.get(name, :limit => 1)
+        def query_actions(href = name)
+          result_hash = client.get(href, :limit => 1)
           fetch_actions(result_hash)
         end
       end
