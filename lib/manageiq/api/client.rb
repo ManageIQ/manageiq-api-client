@@ -8,6 +8,7 @@ require "pp"
 require "query_relation"
 
 require "manageiq/api/client/client"
+require "manageiq/api/client/exceptions"
 require "manageiq/api/client/mixins/action_mixin"
 require "manageiq/api/client/mixins/custom_inspect_mixin"
 
