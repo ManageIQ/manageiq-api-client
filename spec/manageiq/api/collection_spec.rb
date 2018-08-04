@@ -26,4 +26,14 @@ describe ManageIQ::API::Client::Collection do
       miq.groups.create(:description => "sample group")
     end
   end
+
+  describe "#find" do
+    it "with id, but no record exists raises a useful exception" do
+      find_url = "#{api_url}/vms?expand=resources&filter%5B%5D=id=9999&limit=1"
+      stub_request(:get, entrypoint_request_url).to_return(:status => 200, :body => entrypoint_response, :headers => {})
+      stub_request(:get, find_url).to_return(:status => 404, :body => api_file_fixture("responses/error_vms_9999_not_found.json"), :headers => {})
+
+      expect { ManageIQ::API::Client.new.vms.find(9999) }.to raise_error(ManageIQ::API::Client::ResourceNotFound, "Couldn't find resource with 'id' [9999]")
+    end
+  end
 end
