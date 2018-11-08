@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.2] - 2018-11-08
+
+### Fixed
+- Raise a ResourceNotFound error when response is a 404 [[#84](https://github.com/ManageIQ/manageiq-api-client/pull/84)]
+
 ## [0.3.1] - 2018-08-06
 
 ### Fixed
@@ -39,8 +44,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.1...HEAD
-[0.3.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.0...v0.3.1
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.1.0...v0.1.1
