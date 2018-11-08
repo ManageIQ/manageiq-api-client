@@ -103,7 +103,10 @@ module ManageIQ
         end
 
         def check_response
-          if response.status >= 400
+          if response.status == 404
+            message = json_response.fetch_path("error", "message") || json_response["error"]
+            raise ManageIQ::API::Client::ResourceNotFound, message
+          elsif response.status >= 400
             @error = ManageIQ::API::Client::Error.new(response.status, json_response)
             raise @error.message
           end
