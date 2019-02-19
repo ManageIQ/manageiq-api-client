@@ -1,0 +1,135 @@
+{
+  "name": "vms",
+  "count": 74,
+  "subcount": 0,
+  "subquery_count": 0,
+  "pages": 0,
+  "resources": [],
+  "actions": [
+    {
+      "name": "query",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "edit",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "add_lifecycle_event",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "add_event",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "refresh",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "shutdown_guest",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "reboot_guest",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "start",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "stop",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "suspend",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "shelve",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "shelve_offload",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "pause",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "request_console",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "reset",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "retire",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "request_retire",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "set_owner",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "set_ownership",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "set_miq_server",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "scan",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "delete",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "assign_tags",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    },
+    {
+      "name": "unassign_tags",
+      "method": "post",
+      "href": "https://example.com/api/vms"
+    }
+  ],
+  "links": {
+    "self": "https://example.com/api/vms?expand=resources&filter[]=id=9999&limit=1&offset=0",
+    "first": "https://example.com/api/vms?expand=resources&filter[]=id=9999&limit=1&offset=0",
+    "last": "https://example.com/api/vms?expand=resources&filter[]=id=9999&limit=1&offset=0"
+  }
+}
