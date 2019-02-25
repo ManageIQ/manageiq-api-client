@@ -39,12 +39,9 @@ module ManageIQ
           when 0
             raise "Couldn't find resource without an 'id'"
           when 1
-            begin
-              res = limit(1).where(:id => args[0]).to_a
-              request_array ? res : res.first
-            rescue => err
-              raise ManageIQ::API::Client::ResourceNotFound, "Couldn't find resource with 'id' #{args}"
-            end
+            res = limit(1).where(:id => args[0]).to_a
+            raise ManageIQ::API::Client::ResourceNotFound, "Couldn't find resource with 'id' #{args}" if res.blank?
+            request_array ? res : res.first
           else
             raise "Multiple resource find is not supported" unless respond_to?(:query)
             query(args.collect { |id| { "id" => id } })
