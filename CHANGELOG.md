@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.3] - 2019-02-25
+
+### Fixed
+- Raise an error if not found when filtering by a single ID [[#85](https://github.com/ManageIQ/manageiq-api-client/pull/85)]
+
 ## [0.3.2] - 2018-11-08
 
 ### Fixed
@@ -44,7 +49,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.2.0...v0.3.0
