@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.5] - 2020-05-07
+### Changed
+- Loosen dependency and update the json gem to v2.3 [[#92](https://github.com/ManageIQ/manageiq-api-client/pull/92)]
+
 ## [0.3.4] - 2020-04-30
 ### Changed
 - Relax requirement as ActiveSupport::Concern is stable. [[#88](https://github.com/ManageIQ/manageiq-api-client/pull/88)]
@@ -48,7 +52,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.4...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.5...HEAD
+[0.3.5]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.1...v0.3.2
