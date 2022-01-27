@@ -3,6 +3,9 @@ rvm:
   - 2.6.9
   - 2.7.5
 cache: bundler
+gemfile:
+  - gemfiles/activesupport_6.0.gemfile
+  - gemfiles/activesupport_6.1.gemfile
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
