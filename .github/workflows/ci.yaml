@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+  - cron: '0 0 * * 0'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version:
+        - '2.6'
+        - '2.7'
+        - '3.0'
+        rails-version:
+        - '6.0'
+        - '6.1'
+    env:
+      TEST_RAILS_VERSION: ${{ matrix.rails-version }}
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    - name: Run tests
+      run: bundle exec rake
+    - name: Report code coverage
+      if: ${{ github.ref == 'refs/heads/master' && matrix.ruby-version == '3.0' && matrix.rails-version == '6.1' }}
+      continue-on-error: true
+      uses: paambaati/codeclimate-action@v3.0.0
