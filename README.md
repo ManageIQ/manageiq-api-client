@@ -1,7 +1,7 @@
 # ManageIQ API Client
 
 [![Gem Version](https://badge.fury.io/rb/manageiq-api-client.svg)](http://badge.fury.io/rb/manageiq-api-client)
-[![Build Status](https://travis-ci.org/ManageIQ/manageiq-api-client.svg)](https://travis-ci.org/ManageIQ/manageiq-api-client)
+[![CI](https://github.com/ManageIQ/manageiq-api-client/actions/workflows/ci.yaml/badge.svg)](https://github.com/ManageIQ/manageiq-api-client/actions/workflows/ci.yaml)
 [![Code Climate](https://codeclimate.com/github/ManageIQ/manageiq-api-client.svg)](https://codeclimate.com/github/ManageIQ/manageiq-api-client)
 [![Test Coverage](https://codeclimate.com/github/ManageIQ/manageiq-api-client/badges/coverage.svg)](https://codeclimate.com/github/ManageIQ/manageiq-api-client/coverage)
 
