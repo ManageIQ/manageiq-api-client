@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.6] - 2022-05-30
+### Changed
+- Added support to ActiveSupport 6.1 [[#100]](https://github.com/ManageIQ/manageiq-api-client/pull/100)
+- Changed faraday to v1.0. [[#90]](https://github.com/ManageIQ/manageiq-api-client/pull/90)
+
 ## [0.3.5] - 2020-05-07
 ### Changed
 - Loosen dependency and update the json gem to v2.3 [[#92](https://github.com/ManageIQ/manageiq-api-client/pull/92)]
@@ -52,7 +57,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.5...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.6...HEAD
+[0.3.6]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.2...v0.3.3
