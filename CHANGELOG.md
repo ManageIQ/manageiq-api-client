@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.7] - 2023-05-19
+### Changed
+- Loosen faraday to 1.x. [[#108]](https://github.com/ManageIQ/manageiq-api-client/pull/108)
+
 ## [0.3.6] - 2022-05-30
 ### Changed
 - Added support to ActiveSupport 6.1 [[#100]](https://github.com/ManageIQ/manageiq-api-client/pull/100)
@@ -57,7 +61,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.6...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.7...HEAD
+[0.3.7]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.3...v0.3.4
