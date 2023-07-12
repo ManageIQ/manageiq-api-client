@@ -17,11 +17,6 @@
       "href": "https://example.com/api/vms"
     },
     {
-      "name": "add_lifecycle_event",
-      "method": "post",
-      "href": "https://example.com/api/vms"
-    },
-    {
       "name": "add_event",
       "method": "post",
       "href": "https://example.com/api/vms"
