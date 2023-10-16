@@ -76,7 +76,7 @@ module ManageIQ
             faraday.response(:logger, client.logger)
             faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
             faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
-            if authentication.token.blank? && authentication.miqtoken.blank?
+            if authentication.token.blank? && authentication.miqtoken.blank? && authentication.bearer_token.blank?
               faraday.basic_auth(authentication.user, authentication.password)
             end
           end
@@ -90,6 +90,7 @@ module ManageIQ
             @response = handle.run_request(method.to_sym, api_path(path), nil, nil) do |request|
               request.headers[:content_type]  = CONTENT_TYPE
               request.headers[:accept]        = CONTENT_TYPE
+              request.headers[:authorization] = "Bearer #{authentication.bearer_token}" unless authentication.bearer_token.blank?
               request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?
               request.headers['X-Auth-Token'] = authentication.token unless authentication.token.blank?
               request.headers['X-MIQ-Token']  = authentication.miqtoken unless authentication.miqtoken.blank?

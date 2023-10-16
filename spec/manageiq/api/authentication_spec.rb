@@ -29,9 +29,13 @@ describe ManageIQ::API::Client::Authentication do
     it "creates a new authentication with a system token" do
       expect(described_class.new(:miqtoken => "miq_token").miqtoken).to eq("miq_token")
     end
+
+    it "creates a new authentication with a bearer token" do
+      expect(described_class.new(:bearer_token => "bearer_token").bearer_token).to eq("bearer_token")
+    end
   end
 
-  describe ".auth_options_specified" do
+  describe ".auth_options_specified?" do
     it "returns true with credentials" do
       expect(described_class.auth_options_specified?(:user => "user", :password => "pass")).to be_truthy
     end
@@ -42,6 +46,10 @@ describe ManageIQ::API::Client::Authentication do
 
     it "returns true with miqtoken" do
       expect(described_class.auth_options_specified?(:miqtoken => "miqtoken")).to be_truthy
+    end
+
+    it "returns true with bearer_token" do
+      expect(described_class.auth_options_specified?(:bearer_token => "bearer_token")).to be_truthy
     end
 
     it "returns true with group" do

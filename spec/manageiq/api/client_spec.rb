@@ -42,11 +42,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     eq("admin")
-      expect(miq.authentication.password).to eq("smartvm")
-      expect(miq.authentication.group).to    be_nil
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         eq("admin")
+      expect(miq.authentication.password).to     eq("smartvm")
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
     end
 
     it "supports optional user authentication" do
@@ -57,11 +58,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new(:user => "foo", :password => "bar")
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     eq("foo")
-      expect(miq.authentication.password).to eq("bar")
-      expect(miq.authentication.group).to    be_nil
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         eq("foo")
+      expect(miq.authentication.password).to     eq("bar")
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
     end
 
     it "supports optional user token" do
@@ -72,11 +74,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new(:token => "user_token")
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     be_nil
-      expect(miq.authentication.password).to be_nil
-      expect(miq.authentication.group).to    be_nil
-      expect(miq.authentication.token).to    eq("user_token")
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         be_nil
+      expect(miq.authentication.password).to     be_nil
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        eq("user_token")
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
     end
 
     it "supports optional system token" do
@@ -87,11 +90,28 @@ describe ManageIQ::API::Client do
       miq = described_class.new(:miqtoken => "system_token")
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     be_nil
-      expect(miq.authentication.password).to be_nil
-      expect(miq.authentication.group).to    be_nil
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to eq("system_token")
+      expect(miq.authentication.user).to         be_nil
+      expect(miq.authentication.password).to     be_nil
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     eq("system_token")
+      expect(miq.authentication.bearer_token).to be_nil
+    end
+
+    it "supports optional bearer token" do
+      stub_request(:get, entrypoint_request_url)
+        .with(:headers => {:authorization => 'Bearer bearer_token'})
+        .to_return(:status => 200, :body => @entrypoint_response, :headers => {})
+
+      miq = described_class.new(:bearer_token => "bearer_token")
+
+      expect(miq).to be_a(described_class)
+      expect(miq.authentication.user).to         be_nil
+      expect(miq.authentication.password).to     be_nil
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to eq("bearer_token")
     end
 
     it "supports optional authorization group" do
@@ -102,11 +122,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new(:group => "special_group")
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     eq("admin")
-      expect(miq.authentication.password).to eq("smartvm")
-      expect(miq.authentication.group).to    eq("special_group")
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         eq("admin")
+      expect(miq.authentication.password).to     eq("smartvm")
+      expect(miq.authentication.group).to        eq("special_group")
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
     end
 
     it "support open_timeout and timeout" do
@@ -219,11 +240,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     eq("admin")
-      expect(miq.authentication.password).to eq("smartvm")
-      expect(miq.authentication.group).to    be_nil
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         eq("admin")
+      expect(miq.authentication.password).to     eq("smartvm")
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
 
       stub_request(:get, entrypoint_request_url)
         .with(:headers => {:x_auth_token => 'user_temporary_token'})
@@ -231,11 +253,12 @@ describe ManageIQ::API::Client do
 
       miq.update_authentication(:token => "user_temporary_token")
 
-      expect(miq.authentication.user).to     be_nil
-      expect(miq.authentication.password).to be_nil
-      expect(miq.authentication.group).to    be_nil
-      expect(miq.authentication.token).to    eq("user_temporary_token")
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         be_nil
+      expect(miq.authentication.password).to     be_nil
+      expect(miq.authentication.group).to        be_nil
+      expect(miq.authentication.token).to        eq("user_temporary_token")
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
     end
 
     it "group re-authorization updates a client's authentication and reconnects" do
@@ -246,11 +269,12 @@ describe ManageIQ::API::Client do
       miq = described_class.new(:group => "basic_users")
 
       expect(miq).to be_a(described_class)
-      expect(miq.authentication.user).to     eq("admin")
-      expect(miq.authentication.password).to eq("smartvm")
-      expect(miq.authentication.group).to    eq("basic_users")
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         eq("admin")
+      expect(miq.authentication.password).to     eq("smartvm")
+      expect(miq.authentication.group).to        eq("basic_users")
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
 
       stub_request(:get, entrypoint_request_url)
         .with(:headers => {:authorization => 'Basic YWRtaW46c21hcnR2bQ==', :x_miq_group => "super_admins"})
@@ -258,11 +282,12 @@ describe ManageIQ::API::Client do
 
       miq.update_authentication(:group => "super_admins")
 
-      expect(miq.authentication.user).to     eq("admin")
-      expect(miq.authentication.password).to eq("smartvm")
-      expect(miq.authentication.group).to    eq("super_admins")
-      expect(miq.authentication.token).to    be_nil
-      expect(miq.authentication.miqtoken).to be_nil
+      expect(miq.authentication.user).to         eq("admin")
+      expect(miq.authentication.password).to     eq("smartvm")
+      expect(miq.authentication.group).to        eq("super_admins")
+      expect(miq.authentication.token).to        be_nil
+      expect(miq.authentication.miqtoken).to     be_nil
+      expect(miq.authentication.bearer_token).to be_nil
     end
   end
 
