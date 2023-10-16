@@ -6,6 +6,7 @@ module ManageIQ
         attr_reader :password
         attr_reader :token
         attr_reader :miqtoken
+        attr_reader :bearer_token
         attr_reader :group
 
         DEFAULTS = {
@@ -13,26 +14,26 @@ module ManageIQ
           :password => "smartvm"
         }.freeze
 
-        CUSTOM_INSPECT_EXCLUSIONS = [:@password].freeze
+        CUSTOM_INSPECT_EXCLUSIONS = %i[@password @token @miqtoken @bearer_token].freeze
         include CustomInspectMixin
 
         def initialize(options = {})
           @user, @password = fetch_credentials(options)
-          @token, @miqtoken, @group = options.values_at(:token, :miqtoken, :group)
+          @token, @miqtoken, @bearer_token, @group = options.values_at(:token, :miqtoken, :bearer_token, :group)
 
-          unless token || miqtoken
+          unless token || miqtoken || bearer_token
             raise "Must specify both a user and a password" if user.blank? || password.blank?
           end
         end
 
         def self.auth_options_specified?(options)
-          options.slice(:user, :password, :token, :miqtoken, :group).present?
+          options.slice(:user, :password, :token, :miqtoken, :bearer_token, :group).present?
         end
 
         private
 
         def fetch_credentials(options)
-          if options.slice(:user, :password, :token, :miqtoken).blank?
+          if options.slice(:user, :password, :token, :miqtoken, :bearer_token).blank?
             [DEFAULTS[:user], DEFAULTS[:password]]
           else
             [options[:user], options[:password]]
