@@ -27,7 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday", "~> 1.0"
   spec.add_dependency "faraday_middleware", "~> 1.0"
   spec.add_dependency "json", "~> 2.3"
-  spec.add_dependency "more_core_extensions"
   spec.add_dependency "query_relation"
 
   spec.add_development_dependency "bundler"
