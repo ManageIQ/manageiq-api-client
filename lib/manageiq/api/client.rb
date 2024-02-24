@@ -3,8 +3,6 @@ require "active_support/core_ext"
 require "faraday"
 require "faraday_middleware"
 require "json"
-require "more_core_extensions/all"
-require "pp"
 require "query_relation"
 
 require "manageiq/api/client/client"
