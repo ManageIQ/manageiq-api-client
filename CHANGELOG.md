@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.4.1] - 2024-03-06
+### Added
+- Drop active_support and more_core_extensions dependency [[#115]](https://github.com/ManageIQ/manageiq-api-client/pull/115)
+- Add rails 7 support [[#114]](https://github.com/ManageIQ/manageiq-api-client/pull/114)
+
 ## [0.4.0] - 2023-10-16
 ### Added
 - Add Bearer token support [[#113]](https://github.com/ManageIQ/manageiq-api-client/pull/113)
