@@ -1,7 +1,7 @@
 require "active_support"
 require "active_support/core_ext"
 require "faraday"
-require "faraday_middleware"
+require "faraday/follow_redirects"
 require 'forwardable'
 require "json"
 require "query_relation"

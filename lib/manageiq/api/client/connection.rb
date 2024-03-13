@@ -76,10 +76,11 @@ module ManageIQ
             faraday.options.open_timeout = @connection_options[:open_timeout] if @connection_options[:open_timeout]
             faraday.options.timeout      = @connection_options[:timeout]      if @connection_options[:timeout]
             faraday.response(:logger, client.logger)
-            faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
-            faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
+            faraday.response(:follow_redirects, :limit => 3, :standards_compliant => true)
+            # make requests with Net::HTTP
+            faraday.adapter(Faraday.default_adapter)
             if authentication.token.blank? && authentication.miqtoken.blank? && authentication.bearer_token.blank?
-              faraday.basic_auth(authentication.user, authentication.password)
+              faraday.request(:authorization, :basic, authentication.user, authentication.password)
             end
           end
         end
