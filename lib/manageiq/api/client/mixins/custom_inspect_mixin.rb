@@ -1,6 +1,4 @@
 module CustomInspectMixin
-  extend ActiveSupport::Concern
-
   def inspect
     pretty_print_inspect
   end

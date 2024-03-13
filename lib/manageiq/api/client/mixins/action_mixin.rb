@@ -1,6 +1,4 @@
 module ActionMixin
-  extend ActiveSupport::Concern
-
   private
 
   def clear_actions
