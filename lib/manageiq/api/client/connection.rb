@@ -58,12 +58,12 @@ module ManageIQ
         end
 
         def api_path(path)
-          if path.to_s.starts_with?(url.to_s)
+          if path.to_s.start_with?(url.to_s)
             path.to_s
           elsif path.to_s.blank?
             URI.join(url, API_PREFIX).to_s
           else
-            URI.join(url, path.to_s.starts_with?(API_PREFIX) ? path.to_s : "#{API_PREFIX}/#{path}").to_s
+            URI.join(url, path.to_s.start_with?(API_PREFIX) ? path.to_s : "#{API_PREFIX}/#{path}").to_s
           end
         end
 
