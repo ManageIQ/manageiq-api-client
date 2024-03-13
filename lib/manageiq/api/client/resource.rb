@@ -9,7 +9,7 @@ module ManageIQ
         include CustomInspectMixin
 
         def self.subclass(name)
-          name = name.classify
+          name = name.split('_').map(&:capitalize).join.gsub(/e?s$/, "") #.classify
 
           if const_defined?(name, false)
             const_get(name, false)

@@ -57,7 +57,7 @@ module ManageIQ
         end
 
         def self.subclass(name)
-          name = name.camelize
+          name = name.split('_').map(&:capitalize).join #.camelize
 
           if const_defined?(name, false)
             const_get(name, false)
