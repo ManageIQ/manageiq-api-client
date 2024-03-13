@@ -19,7 +19,7 @@ module ManageIQ
           @status = status
           @kind, @message, @klass = nil
           error = json_response["error"]
-          if status >= 400 && error.present?
+          if status >= 400 && (!error.nil? && !error.empty?)
             if error.kind_of?(Hash)
               @kind, @message, @klass = error.values_at("kind", "message", "klass")
             else

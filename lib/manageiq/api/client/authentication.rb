@@ -22,18 +22,18 @@ module ManageIQ
           @token, @miqtoken, @bearer_token, @group = options.values_at(:token, :miqtoken, :bearer_token, :group)
 
           unless token || miqtoken || bearer_token
-            raise "Must specify both a user and a password" if user.blank? || password.blank?
+            raise "Must specify both a user and a password" if user.nil? || user.empty? || password.nil? || password.empty?
           end
         end
 
         def self.auth_options_specified?(options)
-          options.slice(:user, :password, :token, :miqtoken, :bearer_token, :group).present?
+          !options.slice(:user, :password, :token, :miqtoken, :bearer_token, :group).empty?
         end
 
         private
 
         def fetch_credentials(options)
-          if options.slice(:user, :password, :token, :miqtoken, :bearer_token).blank?
+          if options.slice(:user, :password, :token, :miqtoken, :bearer_token).empty?
             [DEFAULTS[:user], DEFAULTS[:password]]
           else
             [options[:user], options[:password]]

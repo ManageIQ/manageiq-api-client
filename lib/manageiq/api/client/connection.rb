@@ -54,7 +54,7 @@ module ManageIQ
 
         def json_response
           resp = response.body.strip
-          resp.blank? ? {} : JSON.parse(resp)
+          resp.empty? ? {} : JSON.parse(resp)
         rescue
           raise JSON::ParserError, "Response received from #{url} is not of type #{CONTENT_TYPE}"
         end
@@ -62,7 +62,7 @@ module ManageIQ
         def api_path(path)
           if path.to_s.start_with?(url.to_s)
             path.to_s
-          elsif path.to_s.blank?
+          elsif path.to_s.empty?
             URI.join(url, API_PREFIX).to_s
           else
             URI.join(url, path.to_s.start_with?(API_PREFIX) ? path.to_s : "#{API_PREFIX}/#{path}").to_s
@@ -78,7 +78,7 @@ module ManageIQ
             faraday.response(:logger, client.logger)
             faraday.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
             faraday.adapter(Faraday.default_adapter) # make requests with Net::HTTP
-            if authentication.token.blank? && authentication.miqtoken.blank? && authentication.bearer_token.blank?
+            if authentication.token.nil? && authentication.miqtoken.nil? && authentication.bearer_token.nil?
               faraday.basic_auth(authentication.user, authentication.password)
             end
           end
@@ -92,10 +92,10 @@ module ManageIQ
             @response = handle.run_request(method.to_sym, api_path(path), nil, nil) do |request|
               request.headers[:content_type]  = CONTENT_TYPE
               request.headers[:accept]        = CONTENT_TYPE
-              request.headers[:authorization] = "Bearer #{authentication.bearer_token}" unless authentication.bearer_token.blank?
-              request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.blank?
-              request.headers['X-Auth-Token'] = authentication.token unless authentication.token.blank?
-              request.headers['X-MIQ-Token']  = authentication.miqtoken unless authentication.miqtoken.blank?
+              request.headers[:authorization] = "Bearer #{authentication.bearer_token}" unless authentication.bearer_token.nil?
+              request.headers['X-MIQ-Group']  = authentication.group unless authentication.group.nil?
+              request.headers['X-Auth-Token'] = authentication.token unless authentication.token.nil?
+              request.headers['X-MIQ-Token']  = authentication.miqtoken unless authentication.miqtoken.nil?
               request.params.merge!(params)
               request.body = yield(block).to_json if block
             end

@@ -62,7 +62,7 @@ module ManageIQ
             body = { "action" => action.name }
             resource = args.dup
             resource.merge!(block.call) if block
-            resource.present? ? body.merge("resource" => resource) : body
+            !resource.empty? ? body.merge("resource" => resource) : body
           end
           action_result(res)
         end
