@@ -2,6 +2,8 @@ module ManageIQ
   module API
     class Client
       class Connection
+        extend Forwardable
+
         attr_reader :url
         attr_reader :authentication
         attr_reader :client
@@ -9,7 +11,7 @@ module ManageIQ
         attr_reader :response
         attr_reader :error
 
-        delegate :url, :authentication, :to => :client
+        def_delegators :client, :url, :authentication
 
         API_PREFIX = "/api".freeze
         CONTENT_TYPE = "application/json".freeze

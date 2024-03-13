@@ -2,6 +2,7 @@ module ManageIQ
   module API
     class Client
       class Resource
+        extend Forwardable
         include ActionMixin
 
         CUSTOM_INSPECT_EXCLUSIONS = [:@collection].freeze
@@ -21,7 +22,7 @@ module ManageIQ
         attr_reader :collection
         attr_reader :actions
 
-        delegate :client, :to => :collection
+        def_delegators :collection, :client
 
         def initialize(collection, resource_hash)
           raise "Cannot instantiate a Resource directly" if instance_of?(Resource)

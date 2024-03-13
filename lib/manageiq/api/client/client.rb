@@ -1,6 +1,7 @@
 module ManageIQ
   module API
     class Client
+      extend Forwardable
       attr_reader :client_options
       attr_reader :logger
       attr_reader :url
@@ -62,7 +63,7 @@ module ManageIQ
         load_definitions
       end
 
-      delegate :get, :post, :put, :patch, :delete, :options, :error, :to => :connection
+      def_delegators :connection, :get, :post, :put, :patch, :delete, :options, :error
 
       private
 
