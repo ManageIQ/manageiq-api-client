@@ -111,7 +111,7 @@ module ManageIQ
             raise ManageIQ::API::Client::ResourceNotFound, message
           elsif response.status >= 400
             @error = ManageIQ::API::Client::Error.new(response.status, json_response)
-            raise @error.message
+            raise ManageIQ::API::Client::Exception, @error.message || "Empty Response"
           end
         end
       end
