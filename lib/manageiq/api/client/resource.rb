@@ -9,7 +9,7 @@ module ManageIQ
         include CustomInspectMixin
 
         def self.subclass(name)
-          name = name.classify
+          name = name.split('_').map(&:capitalize).join.gsub(/e?s$/, "") #.classify
 
           if const_defined?(name, false)
             const_get(name, false)
@@ -62,7 +62,7 @@ module ManageIQ
             body = { "action" => action.name }
             resource = args.dup
             resource.merge!(block.call) if block
-            resource.present? ? body.merge("resource" => resource) : body
+            !resource.empty? ? body.merge("resource" => resource) : body
           end
           action_result(res)
         end

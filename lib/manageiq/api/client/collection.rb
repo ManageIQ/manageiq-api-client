@@ -40,7 +40,7 @@ module ManageIQ
             raise "Couldn't find resource without an 'id'"
           when 1
             res = limit(1).where(:id => args[0]).to_a
-            raise ManageIQ::API::Client::ResourceNotFound, "Couldn't find resource with 'id' #{args}" if res.blank?
+            raise ManageIQ::API::Client::ResourceNotFound, "Couldn't find resource with 'id' #{args}" if res.empty?
             request_array ? res : res.first
           else
             raise "Multiple resource find is not supported" unless respond_to?(:query)
@@ -57,7 +57,7 @@ module ManageIQ
         end
 
         def self.subclass(name)
-          name = name.camelize
+          name = name.split('_').map(&:capitalize).join #.camelize
 
           if const_defined?(name, false)
             const_get(name, false)
@@ -111,7 +111,7 @@ module ManageIQ
         def parameters_from_query_relation(options)
           api_params = {}
           [:offset, :limit].each { |opt| api_params[opt] = options[opt] if options[opt] }
-          api_params[:attributes] = options[:select].join(",") if options[:select].present?
+          api_params[:attributes] = options[:select].join(",") if options[:select] && !options[:select].empty?
           if options[:where]
             api_params[:filter] ||= []
             api_params[:filter] += filters_from_query_relation("=", options[:where])
@@ -178,18 +178,18 @@ module ManageIQ
         def action_body(action_name, *args, &block)
           args = args.flatten
           args = args.first if args.size == 1 && args.first.kind_of?(Hash)
-          args = {} if args.blank?
+          args = {} if args.empty?
           block_data = block ? block.call : {}
           body = { "action" => action_name }
-          if block_data.present?
+          if block_data && !block_data.empty?
             if block_data.kind_of?(Array)
               body["resources"] = block_data.collect { |resource| resource.merge(args) }
-            elsif args.present? && args.kind_of?(Array)
+            elsif !args.empty? && args.kind_of?(Array)
               body["resources"] = args.collect { |resource| resource.merge(block_data) }
             else
               body["resource"] = args.dup.merge!(block_data)
             end
-          elsif args.present?
+          elsif !args.empty?
             body[args.kind_of?(Array) ? "resources" : "resource"] = args
           end
           body

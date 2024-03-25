@@ -1,6 +1,4 @@
 module ActionMixin
-  extend ActiveSupport::Concern
-
   private
 
   def clear_actions
@@ -8,7 +6,7 @@ module ActionMixin
   end
 
   def actions_present?
-    @actions.present?
+    !@actions.empty?
   end
 
   def fetch_actions(resource_hash)
@@ -25,7 +23,7 @@ module ActionMixin
   end
 
   def actions=(action_array)
-    @actions = action_array.blank? ? [] : action_array
+    @actions = (action_array.nil? || action_array.empty?) ? [] : action_array
   end
 
   def add_action(action)
