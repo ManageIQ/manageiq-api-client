@@ -80,7 +80,13 @@ module ManageIQ
             # make requests with Net::HTTP
             faraday.adapter(Faraday.default_adapter)
             if authentication.token.blank? && authentication.miqtoken.blank? && authentication.bearer_token.blank?
-              faraday.request(:authorization, :basic, authentication.user, authentication.password)
+              if faraday.respond_to?(:basic_auth)
+                # faraday 1.0
+                faraday.basic_auth(authentication.user, authentication.password)
+              else
+                # faraday 2.0
+                faraday.request(:authorization, :basic, authentication.user, authentication.password)
+              end
             end
           end
         end
