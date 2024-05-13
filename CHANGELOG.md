@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2024-05-13
+### Changed
+- Support faraday 1.0 and 2.0 [[#124]](https://github.com/ManageIQ/manageiq-api-client/pull/124)
+- Upgrade faraday from 1.0 to 2.0 [[#122]](https://github.com/ManageIQ/manageiq-api-client/pull/122)
+- Revert "drop activesupport dependency" [[#119]](https://github.com/ManageIQ/manageiq-api-client/pull/119)
+
+### Fixed
+- Raise exceptions on empty responses [[#121]](https://github.com/ManageIQ/manageiq-api-client/pull/121)
+
 ## [0.4.1] - 2024-03-06
 ### Added
 - Drop active_support and more_core_extensions dependency [[#115]](https://github.com/ManageIQ/manageiq-api-client/pull/115)
@@ -70,7 +79,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.4.1...v0.5.0
+[0.4.1]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.7...v0.4.0
 [0.3.7]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.3.5...v0.3.6
