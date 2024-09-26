@@ -9,12 +9,12 @@ eval_gemfile(dev_gemfile) if File.exist?(dev_gemfile)
 
 minimum_version =
   case ENV['TEST_RAILS_VERSION']
-  when "6.0"
-    "~>6.0.4"
-  when "7.0"
-    "~>7.0.8"
+  when "7.2"
+    "~>7.2.1"
+  when "7.1"
+    "~>7.1.4"
   else
-    "~>6.1.4"
+    "~>7.0.8"
   end
 
 gem "activesupport", minimum_version
