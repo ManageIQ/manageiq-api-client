@@ -11,6 +11,7 @@ module ManageIQ
         attr_reader :role_href
         attr_reader :tenant
         attr_reader :groups
+        attr_reader :miq_groups
 
         def initialize(identity_spec)
           @userid      = identity_spec["userid"]
@@ -22,6 +23,7 @@ module ManageIQ
           @role_href   = identity_spec["role_href"]
           @tenant      = identity_spec["tenant"]
           @groups      = identity_spec["groups"]
+          @miq_groups  = identity_spec["miq_groups"]
         end
       end
     end
