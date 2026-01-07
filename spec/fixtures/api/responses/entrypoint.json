@@ -271,7 +271,7 @@
     {
       "name": "notifications",
       "href": "http://localhost:3000/api/notifications",
-      "description": "User\'s past notifications"
+      "description": "User's past notifications"
     },
     {
       "name": "orchestration_templates",
