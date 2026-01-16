@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-01-16
+### Changed
+- Add ruby/rails 3.4/8.0, drop EOL rubies/rails less than 3.2/7.2. [[#139]](https://github.com/ManageIQ/manageiq-api-client/pull/139)
+
 ## [0.6.0] - 2025-01-03
 ### Changed
 - Add rails 7.1 support, drop rails 6.0-6.1 and rubies less than 3.0. [[#129]](https://github.com/ManageIQ/manageiq-api-client/pull/129)
@@ -83,7 +87,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.4.0...v0.4.1
