@@ -4884,8 +4884,8 @@
         "description": "Open the Documentation Page"
       },
       "embedded_automation_manager": {
-        "name": "Embedded Automation Manager",
-        "description": "Everything under Automation Manager",
+        "name": "Embedded Automation Provider",
+        "description": "Everything under Automation Provider",
         "children": [
           "embedded_configuration_script_payload",
           "embedded_automation_manager_credentials",
@@ -4975,7 +4975,7 @@
       },
       "embedded_automation_manager_credential_tag": {
         "name": "Edit Tags",
-        "description": "Edit Tags for the selected Automation Manager Credentials"
+        "description": "Edit Tags for the selected Automation Provider Credentials"
       },
       "embedded_automation_manager_credentials_refresh": {
         "name": "Refresh Credentials",
@@ -5043,11 +5043,11 @@
       },
       "embedded_configuration_script_source_tag": {
         "name": "Edit Tags",
-        "description": "Edit Tags for the selected Automation Manager Repositories"
+        "description": "Edit Tags for the selected Automation Provider Repositories"
       },
       "embedded_configuration_script_source_refresh": {
         "name": "Refresh Repositories",
-        "description": "Automation Manager Repositories Refresh",
+        "description": "Automation Provider Repositories Refresh",
         "action": {
           "name": "refresh",
           "method": "post",
