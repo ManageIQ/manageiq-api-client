@@ -9,6 +9,8 @@ eval_gemfile(dev_gemfile) if File.exist?(dev_gemfile)
 
 minimum_version =
   case ENV['TEST_RAILS_VERSION']
+  when "8.1"
+    "~>8.1.3"
   when "8.0"
     "~>8.0.4"
   else
