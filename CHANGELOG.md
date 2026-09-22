@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-07-15
+### Added
+- Add Rails 8.1 support [[#167]](https://github.com/ManageIQ/manageiq-api-client/pull/167)
+- Add new attributes to `Identity`, `ProductInfo`, and `ServerInfo` from the base entrypoint response (`miq_groups`, `branding_info`, `authentication`, `release`, `time`, `enterprise_href`, `plugins`) [[#138]](https://github.com/ManageIQ/manageiq-api-client/pull/138)
+
+### Changed
+- Replace Automation Manager strings with Automation Provider [[#165]](https://github.com/ManageIQ/manageiq-api-client/pull/165)
+
 ## [0.7.0] - 2026-01-16
 ### Changed
 - Add ruby/rails 3.4/8.0, drop EOL rubies/rails less than 3.2/7.2. [[#139]](https://github.com/ManageIQ/manageiq-api-client/pull/139)
@@ -87,7 +95,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add CHANGELOG.md
 - Update README with simple instructions reflecting the query interface.
 
-[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/ManageIQ/manageiq-api-client/compare/v0.4.1...v0.5.0
